@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const custRoutes = require("./routes/custRoutes");
+const shopRoutes = require("./routes/shopRoutes");
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -18,6 +19,7 @@ mongoose
   });
 
 app.use("/custs", custRoutes);
+app.use("/shops", shopRoutes);
 
 app.get("/mart", (req, res) => {
   res.sendFile("./views/enter.html", { root: __dirname });

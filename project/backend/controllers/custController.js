@@ -6,7 +6,7 @@ const sign_up_post = (req, res) => {
   user
     .save()
     .then((result) => {
-      res.redirect("/custs/SignIn");
+      res.redirect("/custs/signin");
     })
     .catch((err) => {
       console.log(err);
