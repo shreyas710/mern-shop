@@ -22,7 +22,9 @@ const sign_in_get = (req, res) => {
 };
 
 const sign_in_post = (req, res) => {
-  Shop.find(req.body)
+  Shop.find({
+    $and: [{ email: req.body.email, password: req.body.pass }],
+  })
     .then((result) => {
       if (result[0] === undefined) {
         res.status(404).sendFile(path.resolve("views/404.html"));

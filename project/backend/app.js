@@ -18,6 +18,7 @@ mongoose
     console.log(err);
   });
 
+app.use(express.json());
 app.use("/custs", custRoutes);
 app.use("/shops", shopRoutes);
 
