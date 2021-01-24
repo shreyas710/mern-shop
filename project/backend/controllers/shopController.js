@@ -1,16 +1,17 @@
 const Shop = require("../models/shop");
 var path = require("path");
 
-const sign_up_post = (req, res) => {
-  const user = new Shop(req.body);
-  user
-    .save()
-    .then((result) => {
-      res.redirect("/shops/signin");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+const sign_up_post = async (req, res) => {
+  const user = new Shop(req.body)
+  try{
+     await user.save()
+     const token = await user.generateShopAuthToken()
+      res.redirect("/custs/signin");
+
+  }catch(e){
+    console.log(e);
+    res.status(404).sendFile(path.resolve("views/404.html"));
+  }
 };
 
 const sign_up_get = (req, res) => {
@@ -21,20 +22,19 @@ const sign_in_get = (req, res) => {
   res.sendFile(path.resolve("views/custSignIn.html"));
 };
 
-const sign_in_post = (req, res) => {
-  Shop.find({
-    $and: [{ email: req.body.email, password: req.body.pass }],
-  })
-    .then((result) => {
-      if (result[0] === undefined) {
-        res.status(404).sendFile(path.resolve("views/404.html"));
-      } else {
-        res.redirect("/mart");
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+const sign_in_post = async (req, res) => {
+  console.log(req.body)
+  
+  try{
+    const user = await Shop.findByCredentials(req.body.email, req.body.password)
+    const token = await user.generateShopAuthToken()
+    res.redirect("/mart")
+  }
+  catch(e){
+    console.log(e)
+    res.status(404).sendFile(path.resolve("views/404.html"));
+  }
+    
 };
 
 module.exports = {
