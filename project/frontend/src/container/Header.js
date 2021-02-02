@@ -44,6 +44,7 @@ import {
 import "./Header.css";
 import { CIcon } from "@coreui/icons-react";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import SearchIcon from "@material-ui/icons/Search";
 import { SidebarContext } from "../contexts/sidebarContext";
 
 const Header = () => {
@@ -55,7 +56,7 @@ const Header = () => {
     if (show === "responsive") {
       setTimeout(() => {
         x.style.display = "inherit";
-      }, 200);
+      }, 300);
     } else {
       x.style.display = "none";
     }
@@ -76,11 +77,11 @@ const Header = () => {
         onClick={toggleSidebar}
       />
 
-      <img src="#" alt="shop" />
+      {/* <img src="#" alt="shop" /> */}
 
       <form>
         <CFormGroup row>
-          <CCol xs="12" md="9">
+          <CCol xs="12" md="9" style={{ display: "inherit" }}>
             <CInput
               type="email"
               id="email-input"
@@ -88,19 +89,24 @@ const Header = () => {
               placeholder="Search your product..."
               autoComplete="email"
               style={{
-                width: "500px",
+                width: "600px",
                 marginTop: "18px",
                 marginLeft: "10px",
               }}
             />
+            <button
+              type="submit"
+              text="Search"
+              style={{
+                height: "35px",
+                width: "50px",
+                marginTop: "18px",
+                marginLeft: "-40px",
+              }}
+            >
+              <SearchIcon />
+            </button>
           </CCol>
-          <button
-            type="submit"
-            text="Search"
-            style={{ width: "60px", marginTop: "15px", marginLeft: "60px" }}
-          >
-            Search
-          </button>
         </CFormGroup>
       </form>
       <ShoppingCartIcon style={{ marginTop: "20px", marginLeft: "350px" }} />
