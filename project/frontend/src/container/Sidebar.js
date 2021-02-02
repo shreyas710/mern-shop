@@ -1,4 +1,4 @@
-import React,{useContext} from 'react'
+import React, { useContext } from "react";
 import {
   CCreateElement,
   CSidebar,
@@ -9,26 +9,19 @@ import {
   CSidebarMinimizer,
   CSidebarNavDropdown,
   CSidebarNavItem,
-} from '@coreui/react'
+} from "@coreui/react";
 
-import CIcon from '@coreui/icons-react'
-import {SidebarContext} from '../contexts/sidebarContext'
+import CIcon from "@coreui/icons-react";
+import { SidebarContext } from "../contexts/sidebarContext";
 
 // sidebar nav config
-import navigation from './_nav'
+import navigation from "./_nav";
 
 const Sidebar = () => {
-  const {show,changeState} = useContext(SidebarContext)
-  const toggleSidebar = () => {
-      changeState(!show);
-  }
-  console.log(show)
+  const { show, changeState } = useContext(SidebarContext);
   return (
-    <CSidebar
-      show={show}
-      onShowChange={() => changeState('responsive')}
-    >
-      <CSidebarBrand className="d-md-down-none" to="/">
+    <CSidebar show={show} onShowChange={() => changeState("responsive")}>
+      {/* <CSidebarBrand className="d-md-down-none" to="/">
         <CIcon
           className="c-sidebar-brand-full"
           name="logo-negative"
@@ -41,20 +34,19 @@ const Sidebar = () => {
         />
       </CSidebarBrand>
       <CSidebarNav>
-
         <CCreateElement
           items={navigation}
           components={{
             CSidebarNavDivider,
             CSidebarNavDropdown,
             CSidebarNavItem,
-            CSidebarNavTitle
+            CSidebarNavTitle,
           }}
         />
       </CSidebarNav>
-      <CSidebarMinimizer className="c-d-md-down-none"/>
+      <CSidebarMinimizer className="c-d-md-down-none" /> */}
     </CSidebar>
-  )
-}
+  );
+};
 
-export default React.memo(Sidebar)
+export default React.memo(Sidebar);
