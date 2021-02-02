@@ -1,25 +1,18 @@
 import React from 'react'
-import SidebarContextProvider from '../contexts/sidebarContext'
 import {
-  Sidebar,
-  Header
+  Header,
+  Footer,
+  Sidebar
 } from './index'
 
 const Layout = () => {
 
   return (
-      <SidebarContextProvider>
-           <div className="c-app c-default-layout">
-                <Sidebar/>
-                <div className="c-wrapper">
-                    <Header/>
-                    {/* <div className="c-body">
-                    <TheContent/>
-                    </div>
-                    <TheFooter/> */}
-                </div>
-            </div>
-      </SidebarContextProvider>
+    <div>
+        <Header />
+        <Sidebar />
+        <Footer />
+    </div>
    
   )
 }

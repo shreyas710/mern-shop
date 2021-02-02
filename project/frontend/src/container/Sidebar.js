@@ -1,52 +1,25 @@
-import React, { useContext } from "react";
-import {
-  CCreateElement,
-  CSidebar,
-  CSidebarBrand,
-  CSidebarNav,
-  CSidebarNavDivider,
-  CSidebarNavTitle,
-  CSidebarMinimizer,
-  CSidebarNavDropdown,
-  CSidebarNavItem,
-} from "@coreui/react";
+import React, { useState, useContext } from "react";
 
-import CIcon from "@coreui/icons-react";
-import { SidebarContext } from "../contexts/sidebarContext";
-
-// sidebar nav config
-import navigation from "./_nav";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import SearchIcon from "@material-ui/icons/Search";
+import { IconContext } from 'react-icons';
+import { Link } from 'react-router-dom';
+import * as FaIcons from 'react-icons/fa';
+import * as AiIcons from 'react-icons/ai';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Fade from '@material-ui/core/Fade';
+import './Sidebar.css'
 
 const Sidebar = () => {
-  const { show, changeState } = useContext(SidebarContext);
   return (
-    <CSidebar show={show} onShowChange={() => changeState("responsive")}>
-      {/* <CSidebarBrand className="d-md-down-none" to="/">
-        <CIcon
-          className="c-sidebar-brand-full"
-          name="logo-negative"
-          height={35}
-        />
-        <CIcon
-          className="c-sidebar-brand-minimized"
-          name="sygnet"
-          height={35}
-        />
-      </CSidebarBrand>
-      <CSidebarNav>
-        <CCreateElement
-          items={navigation}
-          components={{
-            CSidebarNavDivider,
-            CSidebarNavDropdown,
-            CSidebarNavItem,
-            CSidebarNavTitle,
-          }}
-        />
-      </CSidebarNav>
-      <CSidebarMinimizer className="c-d-md-down-none" /> */}
-    </CSidebar>
+    <>
+        <div className="sidebar">
+            <h1>Hello</h1>
+        </div>
+    </>
   );
 };
 
-export default React.memo(Sidebar);
+export default Sidebar;
