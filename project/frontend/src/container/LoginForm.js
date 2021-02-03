@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import * as EmailValidator from "email-validator";
 import * as Yup from "yup";
 
-const ValidatedLoginForm = () => (
+const LoginForm = () => (
     <Formik
       initialValues={{ email: "", password: "" }}
       onSubmit={(values, { setSubmitting }) => {
