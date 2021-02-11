@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-import ReactDOM from "react-dom";
 import { Formik, Form, useField, useFormikContext } from "formik";
 import * as Yup from "yup";
 import styled from "@emotion/styled";
-import "./styles.css";
-import "./styles-custom.css";
+// import './ShopSignUpForm.css'
 
 const MyTextInput = ({ label, ...props }) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -75,10 +73,10 @@ const MySelect = ({ label, ...props }) => {
 };
 
 // And now we can use these
-const SignupForm = () => {
+const ShopSignUpForm = () => {
   return (
     <>
-      <h1>Sign Up as a Customer</h1>
+      <h1>Sign Up as a Shopkeeper</h1>
       <Formik
         initialValues={{
           firstName: "",
@@ -116,24 +114,24 @@ const SignupForm = () => {
           setSubmitting(false);
         }}
       >
-        <Form>
+        <Form >
           <MyTextInput
             label="First Name"
             name="firstName"
             type="text"
-            placeholder="Jane"
+            placeholder="Enter your name..."
           />
           <MyTextInput
-            label="Last Name"
-            name="lastName"
+            label="Shop Name"
+            name="shopname"
             type="text"
-            placeholder="Doe"
+            placeholder="Enter your shop name..."
           />
           <MyTextInput
             label="Email Address"
             name="email"
             type="email"
-            placeholder="jane@example.com"
+            placeholder="Enter your email..."
           />
           <MyTextInput
             label="Phone Number"
@@ -142,12 +140,12 @@ const SignupForm = () => {
             placeholder="0000000000"
           />
 
-          <MySelect label="Area" name="area">
-            <option value="">Select your Area</option>
-            <option value="designer">Hadapsar</option>
-            <option value="development">Wanowrie</option>
-            <option value="product">Dhankawadi</option>
-          </MySelect>
+            <MyTextInput
+            label="Pin Code"
+            name="pin"
+            type="text"
+            placeholder="000000"
+          />
           <MyCheckbox name="acceptedTerms">
             I accept the terms and conditions
           </MyCheckbox>
@@ -158,10 +156,4 @@ const SignupForm = () => {
     </>
   );
 };
-
-function App() {
-  return <SignupForm />;
-}
-
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+export default ShopSignUpForm;

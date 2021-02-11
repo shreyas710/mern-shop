@@ -4,24 +4,28 @@ import "./Header.css";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import SearchIcon from "@material-ui/icons/Search";
 import { IconContext } from "react-icons";
-import { Link } from "react-router-dom";
+import { Link,Redirect } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
+import { SearchContext } from './../contexts/SearchContext'
 
-const Header = () => {
+const Header = (props) => {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const {  items } = useContext(SearchContext)
 
+  const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  const login = () => {
+    this.props.history.push('./login')
+  }
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -40,7 +44,14 @@ const Header = () => {
 
         {/* <button  style={{display:"inline-block",justifyContent:"flex-end"}}><ShoppingCartIcon /></button> */}
 
-        <Button
+        <div className="dropdown">
+          <button className="dropbtn">Customer</button>
+          <div className="dropdown-content">
+            <Link to='/custs/login'><p>Login</p></Link>
+            <Link to='/custs/signup'><p>SignUp</p></Link>
+          </div>
+        </div>
+        {/* <Button
           style={{ justifyContent: "flex-end" }}
           aria-controls="fade-menu"
           aria-haspopup="true"
@@ -57,29 +68,16 @@ const Header = () => {
           TransitionComponent={Fade}
         >
           <MenuItem onClick={handleClose}>SignUp</MenuItem>
-          <MenuItem onClick={handleClose}>Login</MenuItem>
+          <MenuItem onClick={handleClose} linkButton={true} href="http://localhost:3000/login" primaryText="Login" />
           <MenuItem onClick={handleClose}>Logout</MenuItem>
-        </Menu>
-        <Button
-          style={{ display: "flex", justifyContent: "flex-end" }}
-          aria-controls="fade-menu"
-          aria-haspopup="true"
-          onClick={handleClick}
-        >
-          Customer
-        </Button>
-        <Menu
-          id="fade-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={open}
-          onClose={handleClose}
-          TransitionComponent={Fade}
-        >
-          <MenuItem onClick={handleClose}>SignUp</MenuItem>
-          <MenuItem onClick={handleClose}>Login</MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
-        </Menu>
+        </Menu> */}
+        <div className="dropdown">
+          <button className="dropbtn">Shopkeeper</button>
+          <div className="dropdown-content">
+            <Link to='/shop/login'><p>Login</p></Link>
+            <Link to='/shop/signup'><p>SignUp</p></Link>
+          </div>
+        </div>
       </div>
 
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>

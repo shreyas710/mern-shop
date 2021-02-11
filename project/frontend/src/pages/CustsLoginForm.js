@@ -3,8 +3,9 @@ import React from "react";
 import { Formik } from "formik";
 import * as EmailValidator from "email-validator";
 import * as Yup from "yup";
+import './CustsLoginForm.css'
 
-const LoginForm = () => (
+const CustsLoginForm = () => (
     <Formik
       initialValues={{ email: "", password: "" }}
       validate={values => {
@@ -43,38 +44,35 @@ const LoginForm = () => (
       handleSubmit
     } = props;
   
-  
     
     return (
-      <form onSubmit={handleSubmit}>
-  
-        <label htmlFor="email">Email</label>
+      <form onSubmit={handleSubmit} className="cust_login">
+
+        <h1 className="cust_login_text">Customer Login</h1>
+        
+        <label className="cust_login_label" htmlFor="email">Email</label>
         <input
           id="email"
           name="email"
           type="text"
           placeholder="Enter your email"
+          className="cust_input"
         />
-  
-        <label htmlFor="password">Password</label>
+
+        <label className="cust_login_label" htmlFor="password">Password</label>
         <input
           id="password"
           name="password"
           type="password"
           placeholder="Enter your password"
+          className="cust_input"
         />
   
-        <button type="submit" disabled={isSubmitting}>
+        <button className="cust_login_btn" type="submit" disabled={isSubmitting}>
           Login
         </button>
   
-        <p>Don't have an account?? <a href = "#">SignIn </a>Instead
-        
-        
-        </p>
-  
-        
-  
+        <p>Don't have an account?? <a href = "/custs/signup">SignUp </a>Instead</p>
       </form>
     );
   
@@ -82,4 +80,4 @@ const LoginForm = () => (
     </Formik>
   );
   
-  export default LoginForm;
+  export default CustsLoginForm;

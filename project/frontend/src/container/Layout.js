@@ -4,14 +4,16 @@ import {
   Footer,
   Sidebar
 } from './index'
-
-const Layout = () => {
+import SearchContextProvider from './../contexts/SearchContext'
+const Layout = (props) => {
 
   return (
     <div>
-        <Header />
-        <Sidebar />
-        <Footer />
+        <SearchContextProvider >
+          <Header {...props}/>
+          <Sidebar />
+          <Footer />
+        </SearchContextProvider>
     </div>
    
   )
