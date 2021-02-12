@@ -84,7 +84,7 @@ const ShopSignUpForm = () => {
           email: "",
           acceptedTerms: false, // added for our checkbox
           jobType: "", // added for our select
-          phNumber: ""
+          phNumber: "",
         }}
         validationSchema={Yup.object({
           firstName: Yup.string()
@@ -107,14 +107,14 @@ const ShopSignUpForm = () => {
             // specify the set of valid values for job type
             // @see http://bit.ly/yup-mixed-oneOf
             .oneOf(["Hadapsar", "Wanowrie", "Dhankawadi"], "Invalid Area")
-            .required("Required")
+            .required("Required"),
         })}
         onSubmit={async (values, { setSubmitting }) => {
           await new Promise((r) => setTimeout(r, 500));
           setSubmitting(false);
         }}
       >
-        <Form >
+        <Form>
           <MyTextInput
             label="First Name"
             name="firstName"
@@ -140,7 +140,7 @@ const ShopSignUpForm = () => {
             placeholder="0000000000"
           />
 
-            <MyTextInput
+          <MyTextInput
             label="Pin Code"
             name="pin"
             type="text"
@@ -153,6 +153,10 @@ const ShopSignUpForm = () => {
           <button type="submit">Submit</button>
         </Form>
       </Formik>
+
+      <p>
+        Already have an account?? <a href="/shop/login">Sign In </a>Instead
+      </p>
     </>
   );
 };
