@@ -3,7 +3,7 @@ import React from "react";
 import { Formik } from "formik";
 import * as EmailValidator from "email-validator";
 import * as Yup from "yup";
-import "./ShopLoginForm.css";
+import "./ShopLoginSignUpForm.css";
 
 const ShopLoginForm = () => (
   <Formik
@@ -40,9 +40,10 @@ const ShopLoginForm = () => (
       console.log("Heelo");
 
       return (
-        <form onSubmit={handleSubmit} className="shop_login">
-          <h1 className="shop_login_text">Shopkeeper Login</h1>
-          <label className="shop_login_label" htmlFor="email">
+        <form onSubmit={handleSubmit} className="shop">
+          <h1 className="shop_text">Shopkeeper Login</h1>
+          
+          <label className="shop_label" htmlFor="email">
             Email
           </label>
           <input
@@ -53,7 +54,7 @@ const ShopLoginForm = () => (
             className="shop_input"
           />
 
-          <label className="shop_login_label" htmlFor="password">
+          <label className="shop_label" htmlFor="password">
             Password
           </label>
           <input
@@ -65,7 +66,7 @@ const ShopLoginForm = () => (
           />
 
           <button
-            className="shop_login_btn"
+            className="shop_btn"
             type="submit"
             disabled={isSubmitting}
           >

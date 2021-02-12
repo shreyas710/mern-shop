@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Formik, Form, useField, useFormikContext } from "formik";
 import * as Yup from "yup";
 import styled from "@emotion/styled";
+import "./CustsLoginSignUpForm.css";
 // import "./CustsSignUpForm.css";
 
 const MyTextInput = ({ label, ...props }) => {
@@ -76,22 +77,22 @@ const MySelect = ({ label, ...props }) => {
 const CustsSignUpForm = () => {
   return (
     <>
-      <h1>Sign Up as a Customer</h1>
+      
       <Formik
         initialValues={{
-          firstName: "",
-          lastName: "",
+          Name: "",
+          pin: "",
           email: "",
           acceptedTerms: false, // added for our checkbox
           jobType: "", // added for our select
           phNumber: "",
         }}
         validationSchema={Yup.object({
-          firstName: Yup.string()
+          Name: Yup.string()
             .max(15, "Must be 15 characters or less")
             .required("Required"),
-          lastName: Yup.string()
-            .max(20, "Must be 20 characters or less")
+          pin: Yup.string()
+            .max(6, "Must be equal to 6 digits")
             .required("Required"),
           email: Yup.string()
             .email("Invalid email addresss`")
@@ -103,54 +104,92 @@ const CustsSignUpForm = () => {
           acceptedTerms: Yup.boolean()
             .required("Required")
             .oneOf([true], "You must accept the terms and conditions."),
-          jobType: Yup.string()
-            // specify the set of valid values for job type
-            // @see http://bit.ly/yup-mixed-oneOf
-            .oneOf(["Hadapsar", "Wanowrie", "Dhankawadi"], "Invalid Area")
-            .required("Required"),
+          // jobType: Yup.string()
+          //   // specify the set of valid values for job type
+          //   // @see http://bit.ly/yup-mixed-oneOf
+          //   .oneOf(["Hadapsar", "Wanowrie", "Dhankawadi"], "Invalid Area")
+          //   .required("Required"),
         })}
         onSubmit={async (values, { setSubmitting }) => {
           await new Promise((r) => setTimeout(r, 500));
           setSubmitting(false);
         }}
       >
-        <Form>
+        <Form className="cust">
+        <h1 className="cust_text">Sign Up as a Customer</h1>
+
           <MyTextInput
-            label="First Name"
-            name="firstName"
+            label="Name"
+            name="Name"
             type="text"
-            placeholder="Enter your name..."
+            placeholder="Enter Your Name"
+            className="cust_input"
           />
-          <MyTextInput
-            label="Email Address"
+          
+          <label className="cust_login_label" htmlFor="email">
+            Email
+          </label>
+          <input
+            id="email"
             name="email"
-            type="email"
-            placeholder="Enter your email..."
+            type="text"
+            placeholder="Enter your email"
+            className="cust_input"
           />
+          
           <MyTextInput
             label="Phone Number"
             name="phNumber"
             type="text"
             placeholder="0000000000"
+            className="cust_input"
           />
-
           <MyTextInput
             label="Pin Code"
             name="pin"
             type="text"
             placeholder="000000"
+            className="cust_input"
           />
-          <MyCheckbox name="acceptedTerms">
-            I accept the terms and conditions
-          </MyCheckbox>
 
-          <button type="submit">Submit</button>
+          <label className="cust_login_label" htmlFor="password">
+            Password
+          </label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Enter your password"
+            className="cust_input"
+          /> 
+
+          <label className="cust_login_label" htmlFor="password">
+            Confirm Password
+          </label>
+          <input
+            id="confirmPassword"
+            name="confirmPassword"
+            type="password"
+            placeholder="Enter your password"
+            className="cust_input"
+          />   
+          
+          <MyCheckbox name="acceptedTerms">
+             I accept the terms and conditions
+          </MyCheckbox>
+          <br></br>
+          
+
+          <button type="submit" className="cust_btn" >Submit</button>
+
+          <p>
+          Already have an account?? <a href="/custs/login">Sign In </a>Instead
+          </p>
+
         </Form>
       </Formik>
 
-      <p>
-        Already have an account?? <a href="/custs/login">Sign In </a>Instead
-      </p>
+      
     </>
   );
 };

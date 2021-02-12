@@ -3,7 +3,7 @@ import React from "react";
 import { Formik } from "formik";
 import * as EmailValidator from "email-validator";
 import * as Yup from "yup";
-import "./CustsLoginForm.css";
+import "./CustsLoginSignUpForm.css";
 
 const CustsLoginForm = () => (
   <Formik
@@ -38,8 +38,8 @@ const CustsLoginForm = () => (
       } = props;
 
       return (
-        <form onSubmit={handleSubmit} className="cust_login">
-          <h1 className="cust_login_text">Customer Login</h1>
+        <form onSubmit={handleSubmit} className="cust">
+          <h1 className="cust_text">Customer Login</h1>
 
           <label className="cust_login_label" htmlFor="email">
             Email
@@ -64,7 +64,7 @@ const CustsLoginForm = () => (
           />
 
           <button
-            className="cust_login_btn"
+            className="cust_btn"
             type="submit"
             disabled={isSubmitting}
           >

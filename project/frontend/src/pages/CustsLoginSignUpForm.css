@@ -2,37 +2,42 @@
   font-family: sans-serif;
 }
 
-.shop_login_text {
+label {
+  font-weight: bold;
+  display: flex;
+}
+
+.cust_text {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.shop_login {
+.cust {
   max-width: 500px;
   width: 100%;
   margin: 0 auto;
-  margin-top: 200px;
+  margin-top: 100px;
 }
 
-.shop_login_label,
-.shop_input {
+.cust_login_label,
+.cust_input {
   display: block;
   width: 100%;
 }
 
-.shop_login_label {
+.cust_label {
   margin-bottom: 5px;
   height: 22px;
 }
 
-.shop_input {
+.cust_input {
   margin-bottom: 20px;
   padding: 10px;
   border-radius: 3px;
   border: 1px solid #777;
 }
 
-.shop_input.error {
+.cust_input.error {
   border-color: red;
 }
 
@@ -43,15 +48,16 @@
   margin-bottom: 20px;
 }
 
-.shop_login_btn {
+.cust_btn {
   padding: 10px 15px;
   background-color: rgb(70, 153, 179);
   color: white;
   border: 1px solid rgb(70, 153, 179);
   transition: ease-in-out background-color 250ms, ease-in-out color 250ms;
+  border-radius: 20px;
 }
 
-.shop_login_btn:hover {
+.cust_btn:hover {
   cursor: pointer;
   background-color: white;
   color: rgb(70, 153, 179);
