@@ -1,8 +1,6 @@
-// import TheContent from './TheContent'
-// import TheFooter from './TheFooter'
-import Header from "./Header";
+import Header from "./Header/Header";
 import Layout from "./Layout";
-import Footer from "./Footer";
-import Sidebar from "./Sidebar";
-import Content from "./Content";
+import Footer from "./Footer/Footer";
+import Sidebar from "./Sidebar/Sidebar";
+import Content from "./Content/Content";
 export { Header, Layout, Footer, Sidebar, Content };

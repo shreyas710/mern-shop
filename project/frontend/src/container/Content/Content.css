@@ -1,0 +1,15 @@
+.content {
+	width: calc(100% - 350px);
+	position: absolute;
+}
+
+.carousel {
+	margin: 10px;
+}
+
+@media only screen and (max-width: 1000px) {
+	.content {
+		width: calc(100% - 200px);
+		position: absolute;
+	}
+}

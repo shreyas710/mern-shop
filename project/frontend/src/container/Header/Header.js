@@ -10,7 +10,13 @@ import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
-import { SearchContext } from "./../contexts/SearchContext";
+import { SearchContext } from "../../contexts/SearchContext";
+import {
+	ButtonDropdown,
+	DropdownToggle,
+	DropdownMenu,
+	DropdownItem,
+} from "reactstrap";
 
 const Header = (props) => {
 	const [sidebar, setSidebar] = useState(false);
@@ -30,7 +36,7 @@ const Header = (props) => {
 	};
 	return (
 		<>
-			<div className="navbar">
+			<header className="navbar">
 				<Link to="#" className="menu-bars">
 					<FaIcons.FaBars
 						onClick={showSidebar}
@@ -52,17 +58,18 @@ const Header = (props) => {
 
 				{/* <button  style={{display:"inline-block",justifyContent:"flex-end"}}><ShoppingCartIcon /></button> */}
 
-				<div className="dropdown" style={{ marginRight: "10px" }}>
+				<div className="dropdown" style={{ marginRight: "15px" }}>
 					<button className="dropbtn">Customer</button>
 					<div className="dropdown-content">
 						<Link to="/custs/login">
-							<p>Login</p>
+							<p style={{ paddingTop: "15px" }}>Login</p>
 						</Link>
 						<Link to="/custs/signup">
-							<p>SignUp</p>
+							<p style={{ paddingTop: "15px" }}>SignUp</p>
 						</Link>
 					</div>
 				</div>
+
 				{/* <Button
           style={{ justifyContent: "flex-end" }}
           aria-controls="fade-menu"
@@ -83,18 +90,19 @@ const Header = (props) => {
           <MenuItem onClick={handleClose} linkButton={true} href="http://localhost:3000/login" primaryText="Login" />
           <MenuItem onClick={handleClose}>Logout</MenuItem>
         </Menu> */}
+
 				<div className="dropdown">
 					<button className="dropbtn">Shopkeeper</button>
 					<div className="dropdown-content">
 						<Link to="/shop/login">
-							<p>Login</p>
+							<p style={{ paddingTop: "15px" }}>Login</p>
 						</Link>
 						<Link to="/shop/signup">
-							<p>SignUp</p>
+							<p style={{ paddingTop: "15px" }}>SignUp</p>
 						</Link>
 					</div>
 				</div>
-			</div>
+			</header>
 
 			<nav className={sidebar ? "nav-menu active" : "nav-menu"}>
 				<ul className="nav-menu-items" onClick={showSidebar}>
@@ -103,6 +111,7 @@ const Header = (props) => {
 							<AiIcons.AiOutlineClose />
 						</Link>
 					</li>
+
 					{/* {SidebarData.map((item, index) => {
                 return (
                 <li key={index} className={item.cName}>
