@@ -6,9 +6,14 @@ const Layout = (props) => {
 		<div>
 			<SearchContextProvider>
 				<Header {...props} />
+				
+			</SearchContextProvider>
+			<SearchContextProvider>
+				
 				<div className="main">
 					<Sidebar />
 					<Content />
+					
 				</div>
 				<Footer />
 			</SearchContextProvider>
@@ -17,3 +22,6 @@ const Layout = (props) => {
 };
 
 export default Layout;
+
+
+

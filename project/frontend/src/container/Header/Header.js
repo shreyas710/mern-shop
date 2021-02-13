@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import "./Header.css";
 import SearchIcon from "@material-ui/icons/Search";
@@ -34,9 +34,18 @@ const Header = (props) => {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+
+	
+
+
+  
+
+	
+
 	return (
 		<>
-			<header className="navbar">
+		
+			<div className="navbar" >
 				<Link to="#" className="menu-bars">
 					<FaIcons.FaBars
 						onClick={showSidebar}
@@ -102,7 +111,7 @@ const Header = (props) => {
 						</Link>
 					</div>
 				</div>
-			</header>
+			</div>
 
 			<nav className={sidebar ? "nav-menu active" : "nav-menu"}>
 				<ul className="nav-menu-items" onClick={showSidebar}>
@@ -124,6 +133,7 @@ const Header = (props) => {
             })} */}
 				</ul>
 			</nav>
+		
 		</>
 	);
 };

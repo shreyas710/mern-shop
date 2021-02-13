@@ -1,9 +1,37 @@
+.sticky {
+	position: fixed;
+	top: 0;
+	width: 100%;
+  }
+  
+  .sticky + .content {
+	padding-top: 60px;
+  }
+
+  .scrolled{
+	position: fixed;
+	top: 0;
+	left: 0;
+	
+  }
+
+
+
+
 .navbar {
+	position: fixed;
 	background-color: lightgray;
 	height: 80px;
+	width: 100%;
+	top: 0;
 	display: flex;
+	
 	justify-content: flex-end;
-	align-items: center;
+	overflow: hidden;
+	
+	
+	
+	
 }
 
 .menu-bars {
