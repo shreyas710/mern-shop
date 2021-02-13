@@ -67,6 +67,7 @@ const CarouselComp = (props) => {
 	return (
 		<Carousel activeIndex={activeIndex} next={next} previous={previous}>
 			<CarouselIndicators
+				className="item-indicator"
 				items={items}
 				activeIndex={activeIndex}
 				onClickHandler={goToIndex}
