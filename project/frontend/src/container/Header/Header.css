@@ -18,14 +18,11 @@
 	position: fixed;
 	background-color: lightgray;
 	height: 80px;
-	width: 100%;
 	top: 0;
 	display: flex;
-
 	justify-content: flex-end;
-	overflow: hidden;
-
-/* 	z-index: 1; */
+	z-index: 1;
+	width: 100%;
 }
 
 .menu-bars {
