@@ -2,21 +2,17 @@
 	position: fixed;
 	top: 0;
 	width: 100%;
-  }
-  
-  .sticky + .content {
-	padding-top: 60px;
-  }
+}
 
-  .scrolled{
+.sticky + .content {
+	padding-top: 60px;
+}
+
+.scrolled {
 	position: fixed;
 	top: 0;
 	left: 0;
-	
-  }
-
-
-
+}
 
 .navbar {
 	position: fixed;
@@ -25,13 +21,11 @@
 	width: 100%;
 	top: 0;
 	display: flex;
-	
+
 	justify-content: flex-end;
 	overflow: hidden;
-	
-	
-	
-	
+
+	z-index: 1;
 }
 
 .menu-bars {
