@@ -19,13 +19,13 @@ function App() {
 				<Switch>
 					<Route
 						exact
-						path="/custs/login"
+						path="/custs/signin"
 						name="Customer Login Page"
 						component={CustsLoginForm}
 					/>
 					<Route
 						exact
-						path="/shop/login"
+						path="/shops/signin"
 						name="Shopkeeper Login Page"
 						component={ShopLoginForm}
 					/>
@@ -37,7 +37,7 @@ function App() {
 					/>
 					<Route
 						exact
-						path="/shop/signup"
+						path="/shops/signup"
 						name="Customer Register Page"
 						component={ShopSignUpForm}
 					/>

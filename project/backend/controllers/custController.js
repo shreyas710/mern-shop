@@ -7,8 +7,8 @@ const sign_up_post = async (req, res) => {
   const user = new Cust(req.body)
   try{
      await user.save()
-     const token = await user.generateCustAuthToken()
-      res.redirect("/custs/signin");
+    //  const token = await user.generateCustAuthToken()
+      res.status(200).redirect("/custs/signin");
 
   }catch(e){
     console.log(e);
@@ -37,7 +37,7 @@ const sign_in_post = async (req, res) => {
   try{
     const user = await Cust.findByCredentials(req.body.email, req.body.password)
     const token = await user.generateCustAuthToken()
-    res.redirect("/mart")
+    res.status(200).redirect("/mart")
   }
   catch(e){
     console.log(e)

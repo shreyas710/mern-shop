@@ -10,7 +10,6 @@ const itemSchema = new Schema({
     required: true,
     trim:true,
     lowercase:true,
-    unique:true,
   },
   price:{
     type:Number,
@@ -68,13 +67,18 @@ const shopSchema = new Schema({
     },
     location:{
       type:String,
-      required:true,
       lowercase:true,
       trim:true
     },
+    pin:{
+      type:String,
+      trim:true,
+      minLength:6,
+      maxLength:6,
+      required:true
+    },
     address:{
       type:String,
-      required:true,
       trim:true
     },
     items :[{

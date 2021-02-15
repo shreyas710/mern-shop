@@ -1,44 +1,34 @@
-import React from "react";
-
+import React,{useState} from "react";
 import { Formik } from "formik";
 import * as EmailValidator from "email-validator";
 import * as Yup from "yup";
 import "./ShopLoginSignUpForm.css";
+import axios from './../axios/axios'
 
-const ShopLoginForm = () => (
-  <Formik
-    initialValues={{ email: "", password: "" }}
-    validate={(values) => {
-      const errors = {};
-      if (!values.email) {
-        errors.email = "Required";
-      } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-      ) {
-        errors.email = "Invalid email address";
-      }
-      return errors;
-    }}
-    onSubmit={(values, { setSubmitting }) => {
-      setTimeout(() => {
-        console.log("Logging in", values);
-        setSubmitting(false);
-      }, 500);
-    }}
-  >
-    {(props) => {
-      const {
-        values,
-        touched,
-        errors,
-        isSubmitting,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-      } = props;
 
-      console.log("Heelo");
+const ShopLoginForm = () => {
+        const [data,setData]=useState({
+          email:"",
+          password:""
+        })
+        const [isLogged,setIsLogged] = useState(false)
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+            const response = await axios.post('/shops/signin',data);
+            console.log(response)
+            if(response.status==200)
+            {
+                setIsLogged(true);
+            }
+        }
 
+        const handleChange = (e) => {
+          setData({
+            ...data,
+            [e.target.name] : e.target.value
+          })
+          console.log(data)
+        }
       return (
         <form onSubmit={handleSubmit} className="shop">
           <h1 className="shop_text">Shopkeeper Login</h1>
@@ -52,6 +42,8 @@ const ShopLoginForm = () => (
             type="text"
             placeholder="Enter your email"
             className="shop_input"
+            value={data.email}
+            onChange={handleChange}
           />
 
           <label className="shop_label" htmlFor="password">
@@ -61,25 +53,25 @@ const ShopLoginForm = () => (
             id="password"
             name="password"
             type="password"
+            value={data.password}
             placeholder="Enter your password"
             className="shop_input"
+            onChange={handleChange}
           />
 
           <button
             className="shop_btn"
             type="submit"
-            disabled={isSubmitting}
           >
             Login
           </button>
 
           <p>
-            Don't have an account?? <a href="/shop/signup">SignUp </a>Instead
+            Don't have an account?? <a href="/shops/signup">SignUp </a>Instead
           </p>
         </form>
       );
-    }}
-  </Formik>
-);
+    
+};
 
 export default ShopLoginForm;

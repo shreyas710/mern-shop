@@ -1,129 +1,63 @@
-import React, { useEffect } from "react";
-import { Formik, Form, useField, useFormikContext } from "formik";
-import * as Yup from "yup";
-import styled from "@emotion/styled";
+import React, { useEffect,useState } from "react";
 import "./CustsLoginSignUpForm.css";
 // import "./CustsSignUpForm.css";
+import axios from './../axios/axios'
+import Form from 'react-validation/build/form';
+import Input from 'react-validation/build/input';
+import validator from 'validator';
 
-const MyTextInput = ({ label, ...props }) => {
-  // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
-  // which we can spread on <input> and alse replace ErrorMessage entirely.
-  const [field, meta] = useField(props);
-  return (
-    <>
-      <label htmlFor={props.id || props.name}>{label}</label>
-      <input className="text-input" {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
-      ) : null}
-    </>
-  );
-};
 
-const MyCheckbox = ({ children, ...props }) => {
-  const [field, meta] = useField({ ...props, type: "checkbox" });
-  return (
-    <>
-      <label className="checkbox">
-        <input {...field} {...props} type="checkbox" />
-        {children}
-      </label>
-      {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
-      ) : null}
-    </>
-  );
-};
 
-// Styled components ....
-const StyledSelect = styled.select`
-  color: var(--blue);
-`;
-
-const StyledErrorMessage = styled.div`
-  font-size: 12px;
-  color: var(--red-600);
-  width: 400px;
-  margin-top: 0.25rem;
-  &:before {
-    content: "❌ ";
-    font-size: 10px;
+const required = (value) => {
+  if (!value.toString().trim().length) {
+    // We can return string or jsx as the 'error' prop for the validated Component
+    return 'require';
   }
-  @media (prefers-color-scheme: dark) {
-    color: var(--red-300);
+};
+ 
+const email = (value) => {
+  if (!validator.isEmail(value)) {
+    return `${value} is not a valid email.`
   }
-`;
-
-const StyledLabel = styled.label`
-  margin-top: 1rem;
-`;
-
-const MySelect = ({ label, ...props }) => {
-  // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
-  // which we can spread on <input> and alse replace ErrorMessage entirely.
-  const [field, meta] = useField(props);
-  return (
-    <>
-      <StyledLabel htmlFor={props.id || props.name}>{label}</StyledLabel>
-      <StyledSelect {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <StyledErrorMessage>{meta.error}</StyledErrorMessage>
-      ) : null}
-    </>
-  );
 };
 
 // And now we can use these
 const CustsSignUpForm = () => {
+  const [data,setData] = useState({
+    name:"",
+    email:"",
+    phone:"",
+    pin:"",
+    password:"",
+    confirmPassword:""
+  })
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await axios.post('/custs/signup',data);
+    console.log(response)
+  }
+
+    const handleChange = (e) => {
+      setData({
+        ...data,
+        [e.target.name] : e.target.value
+      })
+      console.log(data)
+    }
   return (
-    <>
-      
-      <Formik
-        initialValues={{
-          Name: "",
-          pin: "",
-          email: "",
-          acceptedTerms: false, // added for our checkbox
-          jobType: "", // added for our select
-          phNumber: "",
-        }}
-        validationSchema={Yup.object({
-          Name: Yup.string()
-            .max(15, "Must be 15 characters or less")
-            .required("Required"),
-          pin: Yup.string()
-            .max(6, "Must be equal to 6 digits")
-            .required("Required"),
-          email: Yup.string()
-            .email("Invalid email addresss`")
-            .required("Required"),
-          phNumber: Yup.string()
-            .max(10, "Must be 10 characters")
-            .min(10, "Must be 10 characters")
-            .required("Required"),
-          acceptedTerms: Yup.boolean()
-            .required("Required")
-            .oneOf([true], "You must accept the terms and conditions."),
-          // jobType: Yup.string()
-          //   // specify the set of valid values for job type
-          //   // @see http://bit.ly/yup-mixed-oneOf
-          //   .oneOf(["Hadapsar", "Wanowrie", "Dhankawadi"], "Invalid Area")
-          //   .required("Required"),
-        })}
-        onSubmit={async (values, { setSubmitting }) => {
-          await new Promise((r) => setTimeout(r, 500));
-          setSubmitting(false);
-        }}
-      >
-        <Form className="cust">
+  
+        <Form className="cust" onSubmit={handleSubmit}>
         <h1 className="cust_text">Sign Up as a Customer</h1>
 
-          <MyTextInput
+          <Input
             label="Name"
-            name="Name"
+            name="name"
             type="text"
+            value={data.name}
             placeholder="Enter Your Name"
             className="cust_input"
+            validations={[required]}
+            onChange={handleChange}
           />
           
           <label className="cust_login_label" htmlFor="email">
@@ -133,23 +67,32 @@ const CustsSignUpForm = () => {
             id="email"
             name="email"
             type="text"
+            value={data.email}
             placeholder="Enter your email"
             className="cust_input"
+            onChange={handleChange}
+
           />
           
-          <MyTextInput
+          <input
             label="Phone Number"
-            name="phNumber"
+            name="phone"
             type="text"
+            value={data.phone}
             placeholder="0000000000"
             className="cust_input"
+            onChange={handleChange}
+
           />
-          <MyTextInput
+          <input
             label="Pin Code"
             name="pin"
             type="text"
+            value={data.pin}
             placeholder="000000"
             className="cust_input"
+            onChange={handleChange}
+
           />
 
           <label className="cust_login_label" htmlFor="password">
@@ -159,8 +102,11 @@ const CustsSignUpForm = () => {
             id="password"
             name="password"
             type="password"
+            value={data.password}
             placeholder="Enter your password"
             className="cust_input"
+            onChange={handleChange}
+
           /> 
 
           <label className="cust_login_label" htmlFor="password">
@@ -170,27 +116,28 @@ const CustsSignUpForm = () => {
             id="confirmPassword"
             name="confirmPassword"
             type="password"
+            value={data.confirmPassword}
             placeholder="Enter your password"
             className="cust_input"
+            onChange={handleChange}
+
           />   
           
-          <MyCheckbox name="acceptedTerms">
+          {/* <Checkbox name="acceptedTerms">
              I accept the terms and conditions
-          </MyCheckbox>
+          </Checkbox> */}
           <br></br>
           
 
           <button type="submit" className="cust_btn" >Submit</button>
 
           <p>
-          Already have an account?? <a href="/custs/login">Sign In </a>Instead
+          Already have an account?? <a href="/custs/signin">Sign In </a>Instead
           </p>
 
         </Form>
-      </Formik>
 
       
-    </>
   );
 };
 export default CustsSignUpForm;

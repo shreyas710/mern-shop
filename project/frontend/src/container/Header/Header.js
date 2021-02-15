@@ -70,7 +70,7 @@ const Header = (props) => {
 				<div className="dropdown" style={{ marginRight: "15px" }}>
 					<button className="dropbtn">Customer</button>
 					<div className="dropdown-content">
-						<Link to="/custs/login">
+						<Link to="/custs/signin">
 							<p style={{ paddingTop: "15px" }}>Login</p>
 						</Link>
 						<Link to="/custs/signup">
@@ -103,10 +103,10 @@ const Header = (props) => {
 				<div className="dropdown">
 					<button className="dropbtn">Shopkeeper</button>
 					<div className="dropdown-content">
-						<Link to="/shop/login">
+						<Link to="/shops/signin">
 							<p style={{ paddingTop: "15px" }}>Login</p>
 						</Link>
-						<Link to="/shop/signup">
+						<Link to="/shops/signup">
 							<p style={{ paddingTop: "15px" }}>SignUp</p>
 						</Link>
 					</div>

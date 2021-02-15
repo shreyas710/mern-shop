@@ -1,42 +1,31 @@
-import React from "react";
-
+import React,{useState} from "react";
+import Redirect from 'react-dom'
 import { Formik } from "formik";
 import * as EmailValidator from "email-validator";
 import * as Yup from "yup";
 import "./CustsLoginSignUpForm.css";
+import axios from './../axios/axios'
 
-const CustsLoginForm = () => (
-  <Formik
-    initialValues={{ email: "", password: "" }}
-    validate={(values) => {
-      const errors = {};
-      if (!values.email) {
-        errors.email = "Required";
-      } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-      ) {
-        errors.email = "Invalid email address";
+const CustsLoginForm = () => {
+      const [data,setData]=useState({
+        email:"",
+        password:""
+      })
+      const [isLogged,setIsLogged] = useState(false)
+      const handleSubmit = async (e) => {
+          e.preventDefault();
+          const response = await axios.post('/custs/signin',data);
+          console.log(response);
       }
-      return errors;
-    }}
-    onSubmit={(values, { setSubmitting }) => {
-      setTimeout(() => {
-        console.log("Logging in", values);
-        setSubmitting(false);
-      }, 500);
-    }}
-  >
-    {(props) => {
-      const {
-        values,
-        touched,
-        errors,
-        isSubmitting,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-      } = props;
 
+      const handleChange = (e) => {
+        const name = e.target.name === 'email' ? 'password' : 'email';
+        setData({
+          ...data,
+          [e.target.name] : e.target.value
+        })
+        console.log(data)
+      }
       return (
         <form onSubmit={handleSubmit} className="cust">
           <h1 className="cust_text">Customer Login</h1>
@@ -48,8 +37,10 @@ const CustsLoginForm = () => (
             id="email"
             name="email"
             type="text"
+            value={data.email}
             placeholder="Enter your email"
             className="cust_input"
+            onChange={handleChange}
           />
 
           <label className="cust_login_label" htmlFor="password">
@@ -59,14 +50,15 @@ const CustsLoginForm = () => (
             id="password"
             name="password"
             type="password"
+            value={data.password}
             placeholder="Enter your password"
             className="cust_input"
+            onChange={handleChange}
           />
 
           <button
             className="cust_btn"
             type="submit"
-            disabled={isSubmitting}
           >
             Login
           </button>
@@ -75,9 +67,7 @@ const CustsLoginForm = () => (
             Don't have an account?? <a href="/custs/signup">Sign Up </a>Instead
           </p>
         </form>
-      );
-    }}
-  </Formik>
-);
+  );
+};
 
 export default CustsLoginForm;

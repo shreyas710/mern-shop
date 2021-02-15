@@ -45,14 +45,19 @@ const custSchema = new Schema(
     },
     location:{
       type:String,
-      required:true,
       lowercase:true,
       trim:true
     },
     address:{
       type:String,
-      required:true,
       trim:true
+    },
+    pin:{
+      type:String,
+      trim:true,
+      minLength:6,
+      maxLength:6,
+      required:true
     },
     tokens:[{
       token:{

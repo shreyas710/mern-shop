@@ -5,7 +5,7 @@ const sign_up_post = async (req, res) => {
   const user = new Shop(req.body)
   try{
      await user.save()
-     const token = await user.generateShopAuthToken()
+    //  const token = await user.generateShopAuthToken()
       res.redirect("/custs/signin");
 
   }catch(e){
@@ -28,7 +28,7 @@ const sign_in_post = async (req, res) => {
   try{
     const user = await Shop.findByCredentials(req.body.email, req.body.password)
     const token = await user.generateShopAuthToken()
-    res.redirect("/mart")
+    res.status(200).redirect("/mart")
   }
   catch(e){
     console.log(e)
