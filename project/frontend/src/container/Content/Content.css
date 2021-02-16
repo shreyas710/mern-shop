@@ -1,13 +1,15 @@
 .content {
 	width: calc(100% - 350px);
-	position: absolute;
+	position: relative;
 	top: 80px;
+	bottom: 40px;
 }
 
 .card {
 	margin: 10px;
 }
 .carousel {
+	z-index: 0;
 	margin: 10px;
 }
 
