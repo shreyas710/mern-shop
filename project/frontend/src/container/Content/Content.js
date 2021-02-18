@@ -1,7 +1,7 @@
 import React from "react";
 import "./Content.css";
 import CarouselComp from "./CarouselComponent";
-import ProductCard from "./ProductCard.js";
+import ProductCard from "./productCard.js";
 
 function Content() {
 	return (
