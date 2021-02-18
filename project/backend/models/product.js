@@ -8,6 +8,7 @@ const prodSchema = new Schema(
     {
         name:{
             type: String,
+            required:true,
             trim:true,
             lowercase:true,
           },
@@ -23,3 +24,5 @@ const prodSchema = new Schema(
         }
     }
 );
+const Product = mongoose.model("products", prodSchema);
+module.exports = Product;

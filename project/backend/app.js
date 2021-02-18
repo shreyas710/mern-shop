@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const custRoutes = require("./routes/custRoutes");
 const shopRoutes = require("./routes/shopRoutes");
+const {get_products} = require('./controllers/custController')
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -23,6 +24,8 @@ app.use(cors())
 app.use(express.json());
 app.use("/custs", custRoutes);
 app.use("/shops", shopRoutes);
+
+app.get('/',get_products)
 
 app.get("/mart", (req, res) => {
   res.sendFile("./views/enter.html", { root: __dirname });
