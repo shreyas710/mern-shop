@@ -1,7 +1,7 @@
 import React,{useState,useEffect,useContext} from "react";
 import "./Content.css";
 import CarouselComp from "./CarouselComponent";
-import ProductCard from "./ProductCard.js";
+import ProductCard from "./productCard.js";
 import axios from './../../axios/axios'
 import {CardGroup} from 'reactstrap'
 import {SearchContext} from './../../contexts/SearchContext'

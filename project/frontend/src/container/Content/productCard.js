@@ -15,7 +15,7 @@ const ProductCard = (props) => {
           <CardTitle tag="h5">{props.name}</CardTitle>
           <CardSubtitle tag="h6" className="mb-2 text-muted">{props.category}</CardSubtitle>
           <CardText>This is a wider card </CardText>
-          <Button>Display Shops</Button>
+          <Button>Add to Cart</Button>
         </CardBody>
       </Card>
   );
