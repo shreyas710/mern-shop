@@ -11,6 +11,10 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
 import { SearchContext } from "../../contexts/SearchContext";
+import axios from './../../axios/axios'
+
+
+
 import {
 	ButtonDropdown,
 	DropdownToggle,
@@ -22,8 +26,8 @@ const Header = (props) => {
 	const [sidebar, setSidebar] = useState(false);
 	const showSidebar = () => setSidebar(!sidebar);
 	const [anchorEl, setAnchorEl] = React.useState(null);
-	const { items } = useContext(SearchContext);
-
+	const { items,updateItems } = useContext(SearchContext);
+	const [product,setProduct] = useState("")
 	const open = Boolean(anchorEl);
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -35,13 +39,21 @@ const Header = (props) => {
 		setAnchorEl(null);
 	};
 
-	
+	const handleChange = (e) => {
+		setProduct(e.target.value);
+	}
 
+	const searchProduct = async (e) => {
+		e.preventDefault();
+		try{
+			const response = await axios.get(`/custs/me/product?search=${product}`);
+			console.log(response);
+			updateItems(response.data);
+			setProduct("")
+		}catch(e){
 
-  
-
-	
-
+		}
+	}
 	return (
 		<>
 		
@@ -52,14 +64,19 @@ const Header = (props) => {
 						style={{ marginLeft: "30px" }}
 					/>
 				</Link>
-				<form
+				<form 
 					style={{ marginRight: "auto", marginLeft: "auto" }}
-					className="search_form">
+					className="search_form"
+					onSubmit={searchProduct}
+					>
 					<div>
 						<input
 							type="text"
 							placeholder="Search a product..."
+							name="search"
 							className="search_input"
+							value={product}
+							onChange={handleChange}
 						/>
 						<SearchIcon className="search_icon" />
 					</div>

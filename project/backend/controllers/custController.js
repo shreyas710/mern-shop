@@ -51,7 +51,7 @@ const get_products = async (req, res) => {
 	try {
 		const products = await Product.find();
 		console.log(products);
-		res.status(200).redirect("/custs");
+		res.status(200).send(products);
 	} catch (e) {
 		console.log(e);
 		res.status(404).sendFile(path.resolve("views/404.html"));
@@ -62,9 +62,9 @@ const get_products_search = async (req, res) => {
 	console.log(req.query.search);
 
 	try {
-		const products = await Product.find({ category: req.query.search });
+		const products = await Product.find({name: new RegExp(req.query.search)});
 		console.log(products);
-		res.status(200).redirect("/mart");
+		res.status(200).send(products);
 	} catch (e) {
 		console.log(e);
 		res.status(404).sendFile(path.resolve("views/404.html"));

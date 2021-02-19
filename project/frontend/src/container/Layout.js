@@ -6,10 +6,6 @@ const Layout = (props) => {
 		<div>
 			<SearchContextProvider>
 				<Header {...props} />
-				
-			</SearchContextProvider>
-			<SearchContextProvider>
-				
 				<div className="main">
 					<Sidebar />
 					<Content />
