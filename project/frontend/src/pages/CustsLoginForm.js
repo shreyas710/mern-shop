@@ -5,17 +5,22 @@ import * as EmailValidator from "email-validator";
 import * as Yup from "yup";
 import "./CustsLoginSignUpForm.css";
 import axios from './../axios/axios'
+import { useHistory } from "react-router-dom";
+
 
 const CustsLoginForm = () => {
       const [data,setData]=useState({
         email:"",
         password:""
       })
+      const history = useHistory();
+
       const [isLogged,setIsLogged] = useState(false)
       const handleSubmit = async (e) => {
           e.preventDefault();
           const response = await axios.post('/custs/signin',data);
           console.log(response);
+          history.push("/custs/me");
       }
 
       const handleChange = (e) => {

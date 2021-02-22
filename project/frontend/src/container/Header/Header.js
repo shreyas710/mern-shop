@@ -32,9 +32,6 @@ const Header = (props) => {
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
-	const login = () => {
-		this.props.history.push("./login");
-	};
 	const handleClose = () => {
 		setAnchorEl(null);
 	};

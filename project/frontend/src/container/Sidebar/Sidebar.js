@@ -11,12 +11,19 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
 import "./Sidebar.css";
+import {CartContext} from './../../contexts/CartContext'
 
 const Sidebar = () => {
+  const { items,updateItems } = useContext(CartContext);
+  const products = items.map(item => (
+    <h1>{item.name}</h1>
+  ))
+  console.log(products)
   return (
     <>
       <div className="sidebar">
         <p align="center">List of items in cart</p>
+        {products}
       </div>
     </>
   );
