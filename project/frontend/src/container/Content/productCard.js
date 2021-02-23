@@ -14,7 +14,8 @@ const ProductCard = (props) => {
   const handleClick = () =>{
       const item = {
         _id:"",
-        name:""
+        name:"",
+        quantity:1
       }
       item._id = props._id;
       item.name = props.name;

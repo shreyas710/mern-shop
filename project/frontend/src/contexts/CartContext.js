@@ -8,8 +8,16 @@ const CartContextProvider = (props) => {
     const updateItems = (products) => {
         setItems([...items,products]);
     }
+    const increaseQuantity = (id,value) => {
+        let temp = items;
+        let obj = temp.find(item => item._id === id);
+        if(obj){
+            obj.quantity = parseInt(value);
+        }
+        setItems(temp);
+    }
     return ( 
-        <CartContext.Provider value={{items,updateItems}}>
+        <CartContext.Provider value={{items,updateItems,increaseQuantity}}>
             {props.children}
         </CartContext.Provider>
      );
