@@ -6,7 +6,11 @@ const CartContextProvider = (props) => {
     const [items,setItems] = useState([
     ])
     const updateItems = (products) => {
-        setItems([...items,products]);
+        let obj = items.find(item => item._id === products._id);
+        if(!obj){
+            setItems([...items,products]);
+        }
+        
     }
     const increaseQuantity = (id,value) => {
         let temp = items;
