@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const Cust = require('./cust')
+const Cart = require("./cart");
 
 const prodSchema = new Schema({
 	name: {
@@ -21,15 +21,14 @@ const prodSchema = new Schema({
 		type: String,
 		trim: true,
 		lowercase: true,
-	}
-
+	},
 });
 
-prodSchema.virtual('cust', {
-    ref: 'Cust',
-    localField: '_id',
-    foreignField: 'owner'
-})
+prodSchema.virtual("cart", {
+	ref: "Cart",
+	localField: "_id",
+	foreignField: "owner",
+});
 
 const Product = mongoose.model("products", prodSchema);
 module.exports = Product;

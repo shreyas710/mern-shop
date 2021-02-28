@@ -1,140 +1,153 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const validator = require('validator');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken')
+const validator = require("validator");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const Cart = require("./cart");
 
 const itemSchema = new Schema({
-  name:{
-    type: String,
-    required: true,
-    trim:true,
-    lowercase:true,
-  },
-  price:{
-    type:Number,
-    required:true,
-    min:1,
-  },
-  availability:{
-    type:Boolean,
-    required:true
-  }
-})
+	name: {
+		type: String,
+		required: true,
+		trim: true,
+		lowercase: true,
+	},
+	price: {
+		type: Number,
+		required: true,
+		min: 1,
+	},
+	availability: {
+		type: Boolean,
+		required: true,
+	},
+});
 
-const shopSchema = new Schema({
-    name:{
-      type: String,
-      required: true,
-      trim:true,
-      lowercase:true,
-    },
-    shop_name:{
-      type: String,
-      required: true,
-      trim:true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique:true,
-      trim:true,
-      lowercase:true,
-      validate(value){
-        if (!validator.isEmail(value)) {
-          throw new Error('Email is invalid')
-        }
-      }
-    },
-    password: {
-      type: String,
-      required: true,
-      minlength : 6,
-      trim:true,
-    },
-    phone :{
-      type:String,
-      unique:true,
-      required:true,
-      minlength:10,
-      maxlength:10,
-      trim:true,
-      validate(value){
-        if(!validator.isMobilePhone(value)){
-          throw new Error('Phone number is invalid')
-        }
-      }
-    },
-    location:{
-      type:String,
-      lowercase:true,
-      trim:true
-    },
-    pin:{
-      type:String,
-      trim:true,
-      minLength:6,
-      maxLength:6,
-      required:true
-    },
-    address:{
-      type:String,
-      trim:true
-    },
-    items :[{
-      type: itemSchema,
-    }],
-    tokens:[{
-      token:{
-        type:String,
-        required:true
-      }
-    }]
-  },{ timestamps: true }
+const shopSchema = new Schema(
+	{
+		name: {
+			type: String,
+			required: true,
+			trim: true,
+			lowercase: true,
+		},
+		shop_name: {
+			type: String,
+			required: true,
+			trim: true,
+		},
+		email: {
+			type: String,
+			required: true,
+			unique: true,
+			trim: true,
+			lowercase: true,
+			validate(value) {
+				if (!validator.isEmail(value)) {
+					throw new Error("Email is invalid");
+				}
+			},
+		},
+		password: {
+			type: String,
+			required: true,
+			minlength: 6,
+			trim: true,
+		},
+		phone: {
+			type: String,
+			unique: true,
+			required: true,
+			minlength: 10,
+			maxlength: 10,
+			trim: true,
+			validate(value) {
+				if (!validator.isMobilePhone(value)) {
+					throw new Error("Phone number is invalid");
+				}
+			},
+		},
+		location: {
+			type: String,
+			lowercase: true,
+			trim: true,
+		},
+		pin: {
+			type: String,
+			trim: true,
+			minLength: 6,
+			maxLength: 6,
+			required: true,
+		},
+		address: {
+			type: String,
+			trim: true,
+		},
+		items: [
+			{
+				type: itemSchema,
+			},
+		],
+		tokens: [
+			{
+				token: {
+					type: String,
+					required: true,
+				},
+			},
+		],
+	},
+	{ timestamps: true }
 );
 
-shopSchema.methods.toJSON = function(){
-  const shop = this
-  const shopObject = cust.toObject()
+shopSchema.virtual("cart", {
+	ref: "Cart",
+	localField: "_id",
+	foreignField: "shop_id",
+});
 
-  delete shopObject.password;
+shopSchema.methods.toJSON = function () {
+	const shop = this;
+	const shopObject = cust.toObject();
 
-  return shopObject;
-}
+	delete shopObject.password;
 
-shopSchema.methods.generateShopAuthToken = async function(){
-  const shop = this
-  const token = jwt.sign({_id: shop._id.toString()},"aakashshreyaskunal")
+	return shopObject;
+};
 
-  shop.tokens = shop.tokens.concat({token})
-  await shop.save()
-  return token
-}
+shopSchema.methods.generateShopAuthToken = async function () {
+	const shop = this;
+	const token = jwt.sign({ _id: shop._id.toString() }, "aakashshreyaskunal");
 
-shopSchema.statics.findByCredentials = async (email,password) => {
-  const user = await  Shop.findOne({email})
+	shop.tokens = shop.tokens.concat({ token });
+	await shop.save();
+	return token;
+};
 
-  if(!user){
-    throw new Error("Unable to login")
-  }
+shopSchema.statics.findByCredentials = async (email, password) => {
+	const user = await Shop.findOne({ email });
 
-  const isMatch = await bcrypt.compare(password,user.password)
+	if (!user) {
+		throw new Error("Unable to login");
+	}
 
-  if(!isMatch){
-    throw new Error("Unable to login")
-  }
+	const isMatch = await bcrypt.compare(password, user.password);
 
-  return user;
-}
+	if (!isMatch) {
+		throw new Error("Unable to login");
+	}
 
-shopSchema.pre('save' ,async function(next) {
-  const shop = this
+	return user;
+};
 
-  if(shop.isModified('password')){
-      shop.password = await bcrypt.hash(shop.password, 8)
-  }
-  next();
-})
+shopSchema.pre("save", async function (next) {
+	const shop = this;
+
+	if (shop.isModified("password")) {
+		shop.password = await bcrypt.hash(shop.password, 8);
+	}
+	next();
+});
 
 const Shop = mongoose.model("shopkeepers", shopSchema);
 module.exports = Shop;

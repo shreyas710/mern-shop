@@ -4,7 +4,7 @@
 	position: fixed;
 	right: 0;
 	top: 80px;
-	bottom: 40px;
+	height: 90%;
 }
 @media only screen and (max-width: 1000px) {
 	.sidebar {

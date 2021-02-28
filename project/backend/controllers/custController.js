@@ -8,17 +8,11 @@ const sign_up_post = async (req, res) => {
 	try {
 		await user.save();
 		//  const token = await user.generateCustAuthToken()
-		res.status(200).redirect("/custs/signin");
+		res.status(200);
 	} catch (e) {
 		console.log(e);
 		res.status(404).sendFile(path.resolve("views/404.html"));
 	}
-	user
-		.save()
-		.then((result) => {})
-		.catch((err) => {
-			console.log(err);
-		});
 };
 
 const sign_up_get = (req, res) => {
@@ -62,7 +56,7 @@ const get_products_search = async (req, res) => {
 	console.log(req.query.search);
 
 	try {
-		const products = await Product.find({name: new RegExp(req.query.search)});
+		const products = await Product.find({ name: new RegExp(req.query.search) });
 		console.log(products);
 		res.status(200).send(products);
 	} catch (e) {

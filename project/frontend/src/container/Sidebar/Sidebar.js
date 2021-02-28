@@ -11,35 +11,52 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
 import "./Sidebar.css";
-import {CartContext} from './../../contexts/CartContext'
-import Cart from './Cart'
+import { CartContext } from "./../../contexts/CartContext";
+import Cart from "./Cart";
 
 const Sidebar = () => {
-  const { items,updateItems,increaseQuantity } = useContext(CartContext);
+	let text = "No items in list";
 
-  const handleQuantity = (id,e) => {
-    console.log(e);
-    increaseQuantity(id,e)
-    console.log(items);
-  }
+	const { items, increaseQuantity } = useContext(CartContext);
 
-  const handleDropDown = () => {
-    var obj = document.getElementById("dropdown-name");
-    var selectedText = obj.options[obj.selectedIndex].innerHTML;
-    obj.innerHTML = selectedText;
-  }
-  return (
-    <>
-      <div className="sidebar ">
-        <h3>List of cart Items</h3>
-      <div className="overflow-auto" style={{"height":"650px"}} >
-          {items.map(item => 
-            <Cart className="card" {...item} key={item._id}/>
-          )}
-      </div>
-      </div>
-    </>
-  );
+	const handleQuantity = (id, e) => {
+		console.log(e);
+		increaseQuantity(id, e);
+		console.log(items);
+	};
+
+	const handleDropDown = () => {
+		var obj = document.getElementById("dropdown-name");
+		var selectedText = obj.options[obj.selectedIndex].innerHTML;
+		obj.innerHTML = selectedText;
+	};
+
+	if (items.length > 0) text = "List of items";
+
+	return (
+		<>
+			<div className="sidebar">
+				<h3>{text}</h3>
+				<div className="overflow-auto" style={{ height: "83%" }}>
+					{items.map((item) => (
+						<Cart className="card" {...item} key={item._id} />
+					))}
+				</div>
+				<div className="row mt-2" style={{ height: "8%" }}>
+					<div className="col-12 col-sm-6 pr-1">
+						<button className="btn btn-warning btn-block h-100">
+							Save Cart
+						</button>
+					</div>
+					<div className="col-12 col-sm-6 pl-1">
+						<button className="btn btn-primary btn-block h-100">
+							Checkout
+						</button>
+					</div>
+				</div>
+			</div>
+		</>
+	);
 };
 
 export default Sidebar;

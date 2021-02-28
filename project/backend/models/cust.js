@@ -3,40 +3,8 @@ const Schema = mongoose.Schema;
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const Product = require('./product');
-
-const itemSchema = new Schema(
-	{
-		owner:{
-			type: mongoose.Schema.Types.ObjectId,
-			required: true,
-			ref: 'Product'
-		},
-		price:{
-			type:Number,
-			trim:true
-		},
-		quantity:{
-			type:Number,
-			trim:true
-		}
-	}
-)
-
-const cartSchema = new Schema(
-	{
-		products:[
-			{
-				item:{
-					type:itemSchema
-				},
-			}
-		],
-		shop_id:{
-			type:mongoose.Schema.Types.ObjectId
-		}
-	}
-);
+const Product = require("./product");
+const Cart = require("./cart");
 
 const custSchema = new Schema(
 	{
@@ -101,12 +69,15 @@ const custSchema = new Schema(
 				},
 			},
 		],
-		cart:{
-			type:cartSchema
-		}
 	},
 	{ timestamps: true }
 );
+
+custSchema.virtual("cart", {
+	ref: "Cart",
+	localField: "_id",
+	foreignField: "cust_id",
+});
 
 custSchema.methods.toJSON = function () {
 	const cust = this;
@@ -148,6 +119,15 @@ custSchema.pre("save", async function (next) {
 	if (cust.isModified("password")) {
 		cust.password = await bcrypt.hash(cust.password, 8);
 	}
+
+	const cart = new Cart({ cust_id: cust._id });
+	console.log(cart);
+	try {
+		await cart.save();
+	} catch (e) {
+		console.log(e);
+	}
+
 	next();
 });
 

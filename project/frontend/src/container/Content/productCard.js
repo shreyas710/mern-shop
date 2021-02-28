@@ -1,39 +1,46 @@
-import React,{useState,useEffect,useContext} from 'react';
-import axios from './../../axios/axios'
+import React, { useState, useEffect, useContext } from "react";
+import axios from "./../../axios/axios";
 import { CartContext } from "./../../contexts/CartContext";
 
-
 import {
-  Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button, CardLink, CardGroup
-} from 'reactstrap';
+	Card,
+	CardImg,
+	CardText,
+	CardBody,
+	CardTitle,
+	CardSubtitle,
+	Button,
+	CardLink,
+	CardGroup,
+} from "reactstrap";
 
 const ProductCard = (props) => {
-    
-  const { items,updateItems } = useContext(CartContext);
-  const handleClick = () =>{
-      const item = {
-        _id:"",
-        name:"",
-        quantity:1
-      }
-      item._id = props._id;
-      item.name = props.name;
-      updateItems(item);
-      // console.log(items);
-  }
+	const { items, insertItems } = useContext(CartContext);
+	const handleClick = () => {
+		const item = {
+			_id: "",
+			name: "",
+			quantity: 1,
+		};
+		item._id = props._id;
+		item.name = props.name;
+		insertItems(item);
+		// console.log(items);
+	};
 
-  return (
-      <Card>
-        <CardImg top width="100%" src={props.url} alt={props.name} />
-        <CardBody>
-          <CardTitle tag="h5">{props.name}</CardTitle>
-          <CardSubtitle tag="h6" className="mb-2 text-muted">{props.category}</CardSubtitle>
-          <CardText>This is a wider card </CardText>
-          <Button onClick={handleClick}>Add to Cart</Button>
-        </CardBody>
-      </Card>
-  );
+	return (
+		<Card>
+			<CardImg top width="100%" src={props.url} alt={props.name} />
+			<CardBody>
+				<CardTitle tag="h5">{props.name}</CardTitle>
+				<CardSubtitle tag="h6" className="mb-2 text-muted">
+					{props.category}
+				</CardSubtitle>
+				<CardText>This is a wider card </CardText>
+				<Button onClick={handleClick}>Add to Cart</Button>
+			</CardBody>
+		</Card>
+	);
 };
 
 export default ProductCard;
