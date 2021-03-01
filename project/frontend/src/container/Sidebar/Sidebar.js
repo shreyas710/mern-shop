@@ -42,7 +42,7 @@ const Sidebar = () => {
 						<Cart className="card" {...item} key={item._id} />
 					))}
 				</div>
-				<div className="row mt-1" style={{ height: "8%" }}>
+				<div className="row" style={{ height: "8%",marginTop: "1%" }}>
 					<div className="col-12 col-sm-6 pr-1">
 						<button className="btn btn-warning btn-block h-100">
 							Save Cart
