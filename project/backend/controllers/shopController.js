@@ -23,7 +23,7 @@ const sign_in_get = (req, res) => {
 };
 
 const sign_in_post = async (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   
   try{
     const user = await Shop.findByCredentials(req.body.email, req.body.password)

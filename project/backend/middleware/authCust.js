@@ -13,6 +13,7 @@ const authCust = async (req, res, next) => {
 
         req.token = token
         req.cust = cust
+        console.log(req)
         next()
     } catch (e) {
         res.status(401).send({ error: 'Please authenticate.' })

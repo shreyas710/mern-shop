@@ -13,6 +13,8 @@ import Fade from "@material-ui/core/Fade";
 import "./Sidebar.css";
 import { CartContext } from "./../../contexts/CartContext";
 import Cart from "./Cart";
+import axios from "./../../axios/axios";
+
 
 const Sidebar = () => {
 	let text = "No items in list";
@@ -31,6 +33,17 @@ const Sidebar = () => {
 		obj.innerHTML = selectedText;
 	};
 
+	const saveCart = async () => {
+		try{
+			  const cart = await axios.post("/custs/cart/save",{items})
+			  console.log(cart)
+			
+		}catch(e){
+			console.log(e);
+		}
+		
+	};
+
 	if (items.length > 0) text = "List of items";
 
 	return (
@@ -42,9 +55,10 @@ const Sidebar = () => {
 						<Cart className="card" {...item} key={item._id} />
 					))}
 				</div>
-				<div className="row" style={{ height: "8%",marginTop: "1%" }}>
+				<div className="row" style={{ height: "8%" }}>
 					<div className="col-12 col-sm-6 pr-1">
-						<button className="btn btn-warning btn-block h-100">
+						<button className="btn btn-warning btn-block h-100"
+						onClick={saveCart}>
 							Save Cart
 						</button>
 					</div>

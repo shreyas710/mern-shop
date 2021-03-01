@@ -12,10 +12,10 @@ const itemSchema = new Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Product",
 	},
-	price: {
-		type: Number,
-		trim: true,
-	},
+	// price: {
+	// 	type: Number,
+	// 	trim: true,
+	// },
 	quantity: {
 		type: Number,
 		trim: true,
@@ -30,10 +30,10 @@ const cartSchema = new Schema({
 			},
 		},
 	],
-	shop_id: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: "Shop",
-	},
+	// shop_id: {
+	// 	type: mongoose.Schema.Types.ObjectId,
+	// 	ref: "Shop",
+	// },
 	cust_id: {
 		type: mongoose.Schema.Types.ObjectId,
 		required: true,

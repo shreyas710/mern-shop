@@ -12,7 +12,6 @@ function Content() {
 	const { items } = useContext(SearchContext);
 	useEffect(async () => {
 		const response = await axios.get("/custs");
-		console.log(response);
 		setProducts(response.data);
 	}, []);
 

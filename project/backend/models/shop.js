@@ -100,11 +100,11 @@ const shopSchema = new Schema(
 	{ timestamps: true }
 );
 
-shopSchema.virtual("cart", {
-	ref: "Cart",
-	localField: "_id",
-	foreignField: "shop_id",
-});
+// shopSchema.virtual("cart", {
+// 	ref: "Cart",
+// 	localField: "_id",
+// 	foreignField: "shop_id",
+// });
 
 shopSchema.methods.toJSON = function () {
 	const shop = this;

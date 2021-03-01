@@ -18,17 +18,16 @@ const CustsLoginForm = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const response = await axios.post("/custs/signin", data);
-		console.log(response);
+		localStorage.setItem('cust_token',response.data);
 		history.push("/custs/me");
 	};
 
 	const handleChange = (e) => {
-		const name = e.target.name === "email" ? "password" : "email";
 		setData({
 			...data,
 			[e.target.name]: e.target.value,
 		});
-		console.log(data);
+		// console.log(data);
 	};
 	return (
 		<form onSubmit={handleSubmit} className="cust">

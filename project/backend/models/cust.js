@@ -120,14 +120,6 @@ custSchema.pre("save", async function (next) {
 		cust.password = await bcrypt.hash(cust.password, 8);
 	}
 
-	const cart = new Cart({ cust_id: cust._id });
-	console.log(cart);
-	try {
-		await cart.save();
-	} catch (e) {
-		console.log(e);
-	}
-
 	next();
 });
 
