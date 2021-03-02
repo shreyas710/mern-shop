@@ -15,7 +15,6 @@ import { CartContext } from "./../../contexts/CartContext";
 import Cart from "./Cart";
 import axios from "./../../axios/axios";
 
-
 const Sidebar = () => {
 	let text = "No items in list";
 
@@ -34,14 +33,12 @@ const Sidebar = () => {
 	};
 
 	const saveCart = async () => {
-		try{
-			  const cart = await axios.post("/custs/cart/save",{items})
-			  console.log(cart)
-			
-		}catch(e){
+		try {
+			const cart = await axios.post("/custs/cart/save", { items });
+			console.log(cart);
+		} catch (e) {
 			console.log(e);
 		}
-		
 	};
 
 	if (items.length > 0) text = "List of items";
@@ -57,8 +54,9 @@ const Sidebar = () => {
 				</div>
 				<div className="row" style={{ height: "8%" }}>
 					<div className="col-12 col-sm-6 pr-1">
-						<button className="btn btn-warning btn-block h-100"
-						onClick={saveCart}>
+						<button
+							className="btn btn-warning btn-block h-100"
+							onClick={saveCart}>
 							Save Cart
 						</button>
 					</div>

@@ -10,19 +10,26 @@ function Content() {
 	const [products, setProducts] = useState([]);
 	const [carouselDisplay, setcarouselDisplay] = useState("initial");
 	const { items } = useContext(SearchContext);
-	useEffect(async () => {
-		const response = await axios.get("/custs");
-		setProducts(response.data);
+	useEffect(() => []);
+
+	useEffect(() => {
+		async function setData() {
+			const response = await axios.get("/custs");
+			setProducts(response.data);
+		}
+		setData();
 	}, []);
 
-	useEffect(async () => {
-		setProducts(items);
+	useEffect(() => {
+		async function setData() {
+			setProducts(items);
 
-		if (items.length > 0) {
-			setcarouselDisplay("none");
+			if (items.length > 0) {
+				setcarouselDisplay("none");
+			}
 		}
+		setData();
 	}, [items]);
-	console.log(carouselDisplay);
 	return (
 		<div className="content">
 			<div style={{ display: carouselDisplay }}>

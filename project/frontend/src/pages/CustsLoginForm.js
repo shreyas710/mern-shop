@@ -18,7 +18,7 @@ const CustsLoginForm = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const response = await axios.post("/custs/signin", data);
-		localStorage.setItem('cust_token',response.data);
+		localStorage.setItem("cust_token", response.data);
 		history.push("/custs/me");
 	};
 

@@ -23,13 +23,12 @@ const itemSchema = new Schema({
 });
 
 const cartSchema = new Schema({
-	products: [
-		{
-			item: {
-				type: itemSchema,
-			},
+	products: {
+		type: "array",
+		items: {
+			type: itemSchema,
 		},
-	],
+	},
 	// shop_id: {
 	// 	type: mongoose.Schema.Types.ObjectId,
 	// 	ref: "Shop",

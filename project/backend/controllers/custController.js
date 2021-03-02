@@ -1,15 +1,14 @@
 const Cust = require("../models/cust");
 const Product = require("../models/product");
-const Cart = require("../models/cart")
+const Cart = require("../models/cart");
 var path = require("path");
 
 const sign_up_post = async (req, res) => {
 	// console.log(req.body);
 	const user = new Cust(req.body);
 	try {
-		
 		await user.save();
-		const cart = new Cart({ cust_id: user._id});
+		const cart = new Cart({ cust_id: user._id });
 		// console.log(cart);
 		await cart.save();
 		//  const token = await user.generateCustAuthToken()
@@ -29,7 +28,6 @@ const sign_in_get = (req, res) => {
 };
 
 const sign_in_post = async (req, res) => {
-
 	try {
 		const user = await Cust.findByCredentials(
 			req.body.email,
@@ -70,14 +68,16 @@ const get_products_search = async (req, res) => {
 };
 
 const save_cart = async (req, res) => {
-	console.log(req.cust)
-	console.log(req.body)
+	console.log(req.body.items);
 	try {
-		const cart = await Cart.updateOne({_id: req.cust._id},{
-			$set:{
-				products : req.body.items
+		const cart = await Cart.updateOne(
+			{ cust_id: req.cust._id },
+			{
+				$set: {
+					products: req.body.items,
+				},
 			}
-		});
+		);
 		res.status(200).send();
 	} catch (e) {
 		console.log(e);
@@ -92,5 +92,5 @@ module.exports = {
 	sign_in_post,
 	get_products,
 	get_products_search,
-	save_cart
+	save_cart,
 };
