@@ -1,10 +1,13 @@
 const Shop = require("../models/shop");
 var path = require("path");
+const ShopItem = require("../models/shopItem");
 
 const sign_up_post = async (req, res) => {
   const user = new Shop(req.body)
   try{
-     await user.save()
+        await user.save()
+        const shopItem = new ShopItem({shop_id:user._id});
+        await shopItem.save();
     //  const token = await user.generateShopAuthToken()
       res.redirect("/custs/signin");
 

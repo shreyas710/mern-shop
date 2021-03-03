@@ -4,24 +4,7 @@ const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Cart = require("./cart");
-
-const itemSchema = new Schema({
-	name: {
-		type: String,
-		required: true,
-		trim: true,
-		lowercase: true,
-	},
-	price: {
-		type: Number,
-		required: true,
-		min: 1,
-	},
-	availability: {
-		type: Boolean,
-		required: true,
-	},
-});
+const ShopItem = require('./shopItem');
 
 const shopSchema = new Schema(
 	{
@@ -83,11 +66,6 @@ const shopSchema = new Schema(
 			type: String,
 			trim: true,
 		},
-		items: [
-			{
-				type: itemSchema,
-			},
-		],
 		tokens: [
 			{
 				token: {
@@ -100,11 +78,11 @@ const shopSchema = new Schema(
 	{ timestamps: true }
 );
 
-// shopSchema.virtual("cart", {
-// 	ref: "Cart",
-// 	localField: "_id",
-// 	foreignField: "shop_id",
-// });
+shopSchema.virtual("shopItem", {
+	ref: "ShopItem",
+	localField: "_id",
+	foreignField: "shop_id",
+});
 
 shopSchema.methods.toJSON = function () {
 	const shop = this;
