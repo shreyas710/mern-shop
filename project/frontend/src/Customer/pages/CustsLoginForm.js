@@ -1,10 +1,6 @@
 import React, { useState } from "react";
-import Redirect from "react-dom";
-import { Formik } from "formik";
-import * as EmailValidator from "email-validator";
-import * as Yup from "yup";
 import "./CustsLoginSignUpForm.css";
-import axios from "./../axios/axios";
+import axios from "../../axios/axios";
 import { useHistory } from "react-router-dom";
 
 const CustsLoginForm = () => {

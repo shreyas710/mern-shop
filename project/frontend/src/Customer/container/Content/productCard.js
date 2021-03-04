@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "./../../axios/axios";
-import { CartContext } from "./../../contexts/CartContext";
+import axios from "../../../axios/axios";
+import { CartContext } from "../../contexts/CartContext";
 
 import {
 	Card,

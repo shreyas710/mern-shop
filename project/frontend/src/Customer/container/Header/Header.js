@@ -2,32 +2,18 @@ import React, { useState, useContext, useEffect } from "react";
 
 import "./Header.css";
 import SearchIcon from "@material-ui/icons/Search";
-import { IconContext } from "react-icons";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
-import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Fade from "@material-ui/core/Fade";
 import { SearchContext } from "../../contexts/SearchContext";
-import axios from './../../axios/axios'
-
-
-
-import {
-	ButtonDropdown,
-	DropdownToggle,
-	DropdownMenu,
-	DropdownItem,
-} from "reactstrap";
+import axios from "../../../axios/axios";
 
 const Header = (props) => {
 	const [sidebar, setSidebar] = useState(false);
 	const showSidebar = () => setSidebar(!sidebar);
 	const [anchorEl, setAnchorEl] = React.useState(null);
-	const { items,updateItems } = useContext(SearchContext);
-	const [product,setProduct] = useState("")
+	const { items, updateItems } = useContext(SearchContext);
+	const [product, setProduct] = useState("");
 	const open = Boolean(anchorEl);
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -38,34 +24,30 @@ const Header = (props) => {
 
 	const handleChange = (e) => {
 		setProduct(e.target.value);
-	}
+	};
 
 	const searchProduct = async (e) => {
 		e.preventDefault();
-		try{
+		try {
 			const response = await axios.get(`/custs/me/product?search=${product}`);
 			console.log(response);
 			updateItems(response.data);
-			setProduct("")
-		}catch(e){
-
-		}
-	}
+			setProduct("");
+		} catch (e) {}
+	};
 	return (
 		<>
-		
-			<div className="navbar" >
+			<div className="navbar">
 				<Link to="#" className="menu-bars">
 					<FaIcons.FaBars
 						onClick={showSidebar}
 						style={{ marginLeft: "30px" }}
 					/>
 				</Link>
-				<form 
+				<form
 					style={{ marginRight: "auto", marginLeft: "auto" }}
 					className="search_form"
-					onSubmit={searchProduct}
-					>
+					onSubmit={searchProduct}>
 					<div>
 						<input
 							type="text"
@@ -147,7 +129,6 @@ const Header = (props) => {
             })} */}
 				</ul>
 			</nav>
-		
 		</>
 	);
 };

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./CustsLoginSignUpForm.css";
 // import "./CustsSignUpForm.css";
-import axios from "./../axios/axios";
+import axios from "../../axios/axios";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import validator from "validator";
