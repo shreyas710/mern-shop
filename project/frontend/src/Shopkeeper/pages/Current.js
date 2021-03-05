@@ -70,20 +70,22 @@ function Row(props) {
 					<button className="btn btn-danger">Reject</button>
 				</TableCell>
 			</TableRow>
-			<TableRow>
+			<TableRow >
 				<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
 					<Collapse in={open} timeout="auto" unmountOnExit>
 						<Box margin={1}>
 							<Typography variant="h6" gutterBottom component="div">
-								History
+								Order Details
 							</Typography>
-							<Table size="small" aria-label="purchases">
+							<Table size="small" aria-label="purchases" >
 								<TableHead>
 									<TableRow>
-										<TableCell>Date</TableCell>
-										<TableCell>Customer</TableCell>
-										<TableCell align="right">Amount</TableCell>
-										<TableCell align="right">Total price ($)</TableCell>
+										<TableCell>Sr. No.</TableCell>
+										<TableCell>Item Name</TableCell>
+										<TableCell align="right">Quantity</TableCell>
+										<TableCell align="right">Unit Price</TableCell>
+
+										<TableCell align="right">Item Total price</TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
@@ -96,6 +98,9 @@ function Row(props) {
 											<TableCell align="right">{historyRow.amount}</TableCell>
 											<TableCell align="right">
 												{Math.round(historyRow.amount * row.price * 100) / 100}
+											</TableCell>
+											<TableCell component="th" scope="row" align="right">
+												100
 											</TableCell>
 										</TableRow>
 									))}
