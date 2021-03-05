@@ -45,8 +45,32 @@ const routes = [
 	},
 	{
 		exact: true,
+		path: "/shops/history",
+		name: "history",
+		component: dummy,
+	},
+	{
+		exact: true,
 		path: "/shops/pending",
 		name: "pending",
+		component: dummy,
+	},
+	{
+		exact: true,
+		path: "/shops/addItems",
+		name: "Add Items",
+		component: dummy,
+	},
+	{
+		exact: true,
+		path: "/shops/updateItems",
+		name: "Update Items",
+		component: dummy,
+	},
+	{
+		exact: true,
+		path: "/shops/reviews",
+		name: "reviews",
 		component: dummy,
 	},
 	{
