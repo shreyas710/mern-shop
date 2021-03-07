@@ -9,10 +9,10 @@ const Shop = require("./shop");
 const itemSchema = new Schema({
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Product",
 	},
 	price: {
 		type: Number,
+		min: 1,
 		trim: true,
 	},
 	availability: {
@@ -30,14 +30,9 @@ const shopItemSchema = new Schema({
 	},
 	shop_id: {
 		type: mongoose.Schema.Types.ObjectId,
-        required: true,
+		required: true,
 		ref: "Shop",
 	},
-	// cust_id: {
-	// 	type: mongoose.Schema.Types.ObjectId,
-	// 	required: true,
-	// 	ref: "Cust",
-	// },
 });
 
 const ShopItem = mongoose.model("Shop_Item", shopItemSchema);

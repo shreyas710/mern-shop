@@ -70,14 +70,14 @@ function Row(props) {
 					<button className="btn btn-danger">Reject</button>
 				</TableCell>
 			</TableRow>
-			<TableRow >
+			<TableRow>
 				<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
 					<Collapse in={open} timeout="auto" unmountOnExit>
 						<Box margin={1}>
 							<Typography variant="h6" gutterBottom component="div">
 								Order Details
 							</Typography>
-							<Table size="small" aria-label="purchases" >
+							<Table size="small" aria-label="purchases">
 								<TableHead>
 									<TableRow>
 										<TableCell>Sr. No.</TableCell>

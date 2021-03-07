@@ -12,7 +12,7 @@ const ShopLoginForm = () => {
 		e.preventDefault();
 		const response = await axios.post("/shops/signin", data);
 		console.log(response);
-		if (response.status == 200) {
+		if (response.status === 200) {
 			setIsLogged(true);
 		}
 	};

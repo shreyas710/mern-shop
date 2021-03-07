@@ -10,12 +10,7 @@ const Shop = require("./shop");
 const itemSchema = new Schema({
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Product",
 	},
-	// price: {
-	// 	type: Number,
-	// 	trim: true,
-	// },
 	quantity: {
 		type: Number,
 		trim: true,
