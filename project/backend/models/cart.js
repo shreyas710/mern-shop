@@ -15,6 +15,10 @@ const itemSchema = new Schema({
 		type: Number,
 		trim: true,
 	},
+	name:{
+		type:String,
+		trim:true
+	}
 });
 
 const cartSchema = new Schema({

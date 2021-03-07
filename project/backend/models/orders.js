@@ -10,6 +10,10 @@ const itemSchema = new Schema({
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
 	},
+	name:{
+		type:String,
+		trim:true
+	},
 	price: {
 		type: Number,
 		min: 1,
@@ -25,10 +29,10 @@ const itemSchema = new Schema({
 
 const orderSchema = new Schema(
 	{
-		orderID: {
-			type: Number,
-			required: true,
-		},
+		// orderID: {
+		// 	type: Number,
+		// 	required: true,
+		// },
 
 		shop_id: {
 			type: mongoose.Schema.Types.ObjectId,
@@ -61,7 +65,6 @@ const orderSchema = new Schema(
 
 		deliveryDate: {
 			type: Date,
-			required: true,
 		},
 	},
 	{ timestamps: true }

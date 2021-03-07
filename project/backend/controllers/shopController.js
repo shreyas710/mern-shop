@@ -34,7 +34,7 @@ const sign_in_post = async (req, res) => {
 			req.body.password
 		);
 		const token = await user.generateShopAuthToken();
-		res.status(200).redirect("/mart");
+		res.status(200).send(token);
 	} catch (e) {
 		console.log(e);
 		res.status(404).sendFile(path.resolve("views/404.html"));
@@ -42,14 +42,14 @@ const sign_in_post = async (req, res) => {
 };
 
 const getOrders = async (req, res) => {
-	console.log(req.body);
-	// try {
-	// 	const orders = await Orders.findById(req.shop._id);
-	// 	console.log(orders);
-	// 	res.status(200).send(orders);
-	// } catch (e) {
-	// 	console.log(e);
-	// }
+	console.log(req.shop._id);
+	try {
+		const orders = await Orders.findOne({ shop_id: req.shop._id });
+		console.log(orders);
+		res.status(200).send(orders);
+	} catch (e) {
+		console.log(e);
+	}
 };
 
 module.exports = {

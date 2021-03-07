@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./ShopLoginSignUpForm.css";
 import axios from "../../axios/axios";
+import { useHistory } from "react-router-dom";
+
 
 const ShopLoginForm = () => {
 	const [data, setData] = useState({
@@ -8,12 +10,15 @@ const ShopLoginForm = () => {
 		password: "",
 	});
 	const [isLogged, setIsLogged] = useState(false);
+	const history = useHistory();
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const response = await axios.post("/shops/signin", data);
 		console.log(response);
 		if (response.status === 200) {
-			setIsLogged(true);
+			localStorage.setItem("token", response.data);
+			history.push("/shops/me");
 		}
 	};
 
