@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
@@ -14,7 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import axios from './../../axios/axios'
+import axios from "./../../axios/axios";
 
 const useRowStyles = makeStyles({
 	root: {
@@ -43,8 +43,6 @@ function Row(props) {
 	const { row } = props;
 	const [open, setOpen] = React.useState(false);
 	const classes = useRowStyles();
-
-
 
 	return (
 		<React.Fragment>
@@ -151,18 +149,19 @@ const rows = [
 ];
 
 const Current = () => {
+	const [orders, setOrders] = useState();
 
-	const [orders,setOrders] = useState();
-
-	useEffect( async () => {
-		try{
-			const data  = await axios('/shops/me');
-			setOrders(data);
-		}catch(e){
-			console.log(e);
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				const data = await axios("/shops/me");
+				setOrders(data);
+			} catch (e) {
+				console.log(e);
+			}
 		}
-		
-	}, [orders])
+		fetchData();
+	}, []);
 
 	return (
 		<TableContainer component={Paper} className="container-fluid">
