@@ -2,6 +2,7 @@ const Shop = require("../models/shop");
 var path = require("path");
 const ShopItem = require("../models/shopItem");
 const Orders = require("../models/orders");
+const Cust = require("../models/cust");
 
 const sign_up_post = async (req, res) => {
 	const user = new Shop(req.body);
@@ -42,11 +43,36 @@ const sign_in_post = async (req, res) => {
 };
 
 const getOrders = async (req, res) => {
-	console.log(req.shop._id);
 	try {
-		const orders = await Orders.find({ shop_id: req.shop._id });
+		let orders = await Orders.find({
+			$and: [{ shop_id: req.shop._id }, { status: "waiting" }],
+		});
+
+		const updatedOrders = await Promise.all(
+			orders.map(async (order) => {
+				async function fetchData(order) {
+					let temp = order;
+					try {
+						const cust = await Cust.findOne({ _id: order.cust_id });
+						temp.address = cust.address;
+						temp.name = cust.name;
+						// console.log(temp);
+					} catch (e) {
+						console.log(e);
+					}
+					return Promise.resolve(temp);
+				}
+				const data = await fetchData(order);
+				// console.log(data);
+				return data;
+			})
+		);
+
+		orders[0].name = "shreyas";
 		console.log(orders);
-		res.status(200).send(orders);
+
+		// console.log(updatedOrders);
+		res.status(200).send(updatedOrders);
 	} catch (e) {
 		console.log(e);
 	}

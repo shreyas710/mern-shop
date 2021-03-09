@@ -10,7 +10,6 @@ function Content() {
 	const [products, setProducts] = useState([]);
 	const [carouselDisplay, setcarouselDisplay] = useState("initial");
 	const { items } = useContext(SearchContext);
-	useEffect(() => []);
 
 	useEffect(() => {
 		async function setData() {

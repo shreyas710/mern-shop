@@ -10,9 +10,9 @@ const itemSchema = new Schema({
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
 	},
-	name:{
-		type:String,
-		trim:true
+	name: {
+		type: String,
+		trim: true,
 	},
 	price: {
 		type: Number,

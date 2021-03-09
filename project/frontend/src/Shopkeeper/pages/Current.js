@@ -61,9 +61,9 @@ function Row(props) {
 					{row.name}
 				</TableCell>
 				<TableCell align="left" className="w-25">
-					{row.calories}
+					{row.address}
 				</TableCell>
-				<TableCell align="right">{row.fat}</TableCell>
+				<TableCell align="right">{row.totalPrice}</TableCell>
 				<TableCell align="right" className="border-bottom">
 					<button className="btn btn-success">Accept</button>
 				</TableCell>
@@ -90,18 +90,16 @@ function Row(props) {
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{row.history.map((historyRow) => (
+									{row.products.map((historyRow, index) => (
 										<TableRow key={historyRow.date}>
 											<TableCell component="th" scope="row">
-												{historyRow.date}
+												{index + 1}
 											</TableCell>
-											<TableCell>{historyRow.customerId}</TableCell>
-											<TableCell align="right">{historyRow.amount}</TableCell>
+											<TableCell>{historyRow.name}</TableCell>
+											<TableCell align="right">{historyRow.quantity}</TableCell>
+											<TableCell align="right">{historyRow.price}</TableCell>
 											<TableCell align="right">
-												{Math.round(historyRow.amount * row.price * 100) / 100}
-											</TableCell>
-											<TableCell component="th" scope="row" align="right">
-												100
+												{historyRow.quantity * historyRow.price}
 											</TableCell>
 										</TableRow>
 									))}
@@ -155,14 +153,14 @@ const Current = () => {
 		async function fetchData() {
 			try {
 				const data = await axios("/shops/me");
-				setOrders(data);
+				console.log(data.data.name);
+				setOrders(data.data);
 			} catch (e) {
 				console.log(e);
 			}
-			
 		}
 		fetchData();
-		console.log(orders)
+		console.log(orders);
 	}, []);
 
 	return (
@@ -185,7 +183,7 @@ const Current = () => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{rows.map((row) => (
+					{orders.map((row) => (
 						<Row key={row.name} row={row} />
 					))}
 				</TableBody>
