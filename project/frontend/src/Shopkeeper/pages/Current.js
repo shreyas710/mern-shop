@@ -24,19 +24,14 @@ const useRowStyles = makeStyles({
 	},
 });
 
-function createData(name, calories, fat, carbs, protein, price) {
-	return {
-		name,
-		calories,
-		fat,
-		carbs,
-		protein,
-		price,
-		history: [
-			{ date: "2020-01-05", customerId: "11091700", amount: 3 },
-			{ date: "2020-01-02", customerId: "Anonymous", amount: 1 },
-		],
-	};
+const handleClick = async (flag,id) => {
+	const status = flag === 1 ? 'accepted' : 'rejected';
+	try{
+		const data = await axios.get(`/me/${id}?${status}=true`)
+
+	}catch(e){
+		console.log(e);
+	}
 }
 
 function Row(props) {
@@ -55,20 +50,20 @@ function Row(props) {
 						{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
 					</IconButton>
 				</TableCell>
-				<TableCell>{row.order_id}</TableCell>
-				<TableCell>{row.createdAt}</TableCell>
+				<TableCell>{row.order.order_id}</TableCell>
+				<TableCell>{row.order.createdAt}</TableCell>
 				<TableCell className="w-25" component="th" scope="row">
 					{row.name}
 				</TableCell>
 				<TableCell align="left" className="w-25">
 					{row.address}
 				</TableCell>
-				<TableCell align="right">{row.totalPrice}</TableCell>
+				<TableCell align="right">{row.order.totalPrice}</TableCell>
 				<TableCell align="right" className="border-bottom">
-					<button className="btn btn-success">Accept</button>
+					<button className="btn btn-success" onClick={() => handleClick(1,row.order.order_id)}>Accept</button>
 				</TableCell>
 				<TableCell align="right" className="border-bottom">
-					<button className="btn btn-danger">Reject</button>
+					<button className="btn btn-danger" onClick={() => handleClick(0,row.order.order_id)}>Reject</button>
 				</TableCell>
 			</TableRow>
 			<TableRow>
@@ -90,7 +85,7 @@ function Row(props) {
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{row.products.map((historyRow, index) => (
+									{row.order.products.map((historyRow, index) => (
 										<TableRow key={historyRow.date}>
 											<TableCell component="th" scope="row">
 												{index + 1}
@@ -113,39 +108,6 @@ function Row(props) {
 	);
 }
 
-Row.propTypes = {
-	row: PropTypes.shape({
-		calories: PropTypes.string.isRequired,
-		carbs: PropTypes.number.isRequired,
-		fat: PropTypes.number.isRequired,
-		history: PropTypes.arrayOf(
-			PropTypes.shape({
-				amount: PropTypes.number.isRequired,
-				customerId: PropTypes.string.isRequired,
-				date: PropTypes.string.isRequired,
-			})
-		).isRequired,
-		name: PropTypes.string.isRequired,
-		price: PropTypes.number.isRequired,
-		protein: PropTypes.number.isRequired,
-	}).isRequired,
-};
-
-const rows = [
-	createData(
-		"Frozen yoghurtFrozen yoghurtFrozen yoghurtFrozen yoghurtFrozen yoghurtFrozen yoghurt",
-		"Frozen yoghurtFrozen yoghurtFrozen yoghurtFrozen yoghurtFrozen yoghurtFrozen yoghurtFrozen yoghurtFrozen yoghurtFrozen yoghurtFrozen yoghurtFrozen yoghurtFrozen yoghurtFrozen yoghurtFrozen yoghurtFrozen yoghurt",
-		6.0,
-		24,
-		4.0,
-		3.99
-	),
-	createData("Ice cream sandwich", 237, 9.0, 37, 4.3, 4.99),
-	createData("Eclair", 262, 16.0, 24, 6.0, 3.79),
-	createData("Cupcake", 305, 3.7, 67, 4.3, 2.5),
-	createData("Gingerbread", 356, 16.0, 49, 3.9, 1.5),
-];
-
 const Current = () => {
 	const [orders, setOrders] = useState([]);
 
@@ -153,7 +115,7 @@ const Current = () => {
 		async function fetchData() {
 			try {
 				const data = await axios("/shops/me");
-				console.log(data.data.name);
+				// console.log(data.data.name);
 				setOrders(data.data);
 			} catch (e) {
 				console.log(e);

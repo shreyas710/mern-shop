@@ -51,12 +51,15 @@ const getOrders = async (req, res) => {
 		const updatedOrders = await Promise.all(
 			orders.map(async (order) => {
 				async function fetchData(order) {
-					let temp = order;
+					let temp = {
+						name:"",
+						address:"",
+						order
+					};
 					try {
 						const cust = await Cust.findOne({ _id: order.cust_id });
 						temp.address = cust.address;
 						temp.name = cust.name;
-						// console.log(temp);
 					} catch (e) {
 						console.log(e);
 					}
@@ -68,15 +71,34 @@ const getOrders = async (req, res) => {
 			})
 		);
 
-		orders[0].name = "shreyas";
-		console.log(orders);
 
-		// console.log(updatedOrders);
 		res.status(200).send(updatedOrders);
 	} catch (e) {
 		console.log(e);
 	}
 };
+
+const updateOrders = async (req,res) => {
+	console.log(req.params,req.query.accepted)
+	let status = req.query.accepted === 'true' ? 'accepted' : req.query.rejected === 'true' ?  'rejected': req.query.delivered === 'true' ? 'delivered' : null;
+	if(!status){
+		return res.status(200).send();
+	}
+	const id = Number.parseInt(req.params.order_id);
+	try{
+		await Orders.updateOne(
+			{ order_id: id},
+			{
+				$set: {
+					status : status
+				},
+			}
+		);
+	}catch(e){
+		console.log(e);
+	}
+	res.status(200).send();
+}
 
 module.exports = {
 	sign_up_post,
@@ -84,4 +106,5 @@ module.exports = {
 	sign_in_get,
 	sign_in_post,
 	getOrders,
+	updateOrders
 };
