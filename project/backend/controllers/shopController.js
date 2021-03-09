@@ -44,7 +44,7 @@ const sign_in_post = async (req, res) => {
 const getOrders = async (req, res) => {
 	console.log(req.shop._id);
 	try {
-		const orders = await Orders.findOne({ shop_id: req.shop._id });
+		const orders = await Orders.find({ shop_id: req.shop._id });
 		console.log(orders);
 		res.status(200).send(orders);
 	} catch (e) {

@@ -55,8 +55,8 @@ function Row(props) {
 						{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
 					</IconButton>
 				</TableCell>
-				<TableCell>1</TableCell>
-				<TableCell>1-10-2020</TableCell>
+				<TableCell>{row.order_id}</TableCell>
+				<TableCell>{row.createdAt}</TableCell>
 				<TableCell className="w-25" component="th" scope="row">
 					{row.name}
 				</TableCell>
@@ -149,7 +149,7 @@ const rows = [
 ];
 
 const Current = () => {
-	const [orders, setOrders] = useState();
+	const [orders, setOrders] = useState([]);
 
 	useEffect(() => {
 		async function fetchData() {
@@ -159,8 +159,10 @@ const Current = () => {
 			} catch (e) {
 				console.log(e);
 			}
+			
 		}
 		fetchData();
+		console.log(orders)
 	}, []);
 
 	return (
