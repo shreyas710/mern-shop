@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Collapse from "@material-ui/core/Collapse";
@@ -15,7 +14,7 @@ import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import axios from "./../../axios/axios";
-import { OrderContext } from "../contexts/OrderContext";
+import { PendingContext } from "../contexts/PendingContext";
 
 const useRowStyles = makeStyles({
 	root: {
@@ -30,18 +29,14 @@ function Row(props) {
 	const [open, setOpen] = React.useState(false);
 	const classes = useRowStyles();
 
-	const { orders, updateOrders } = useContext(OrderContext);
+	const { orders, updateOrders } = useContext(PendingContext);
 
-	const handleClick = async (flag, id) => {
-		const status = flag === 1 ? "accepted" : "rejected";
+	const handleClick = async (id) => {
+		const status = "delivered";
 		try {
-			console.log(id);
 			const data = await axios.get(`shops/me/get/${id}?${status}=true`);
-
-			const data1 = await axios("/shops/me");
+			const data1 = await axios("/shops/me/pending");
 			updateOrders(data1.data);
-
-			console.log(data);
 		} catch (e) {
 			console.log(e);
 		}
@@ -69,16 +64,9 @@ function Row(props) {
 				<TableCell align="right">{row.order.totalPrice}</TableCell>
 				<TableCell align="right" className="border-bottom">
 					<button
-						className="btn btn-success"
-						onClick={() => handleClick(1, row.order.order_id)}>
-						Accept
-					</button>
-				</TableCell>
-				<TableCell align="right" className="border-bottom">
-					<button
-						className="btn btn-danger"
-						onClick={() => handleClick(0, row.order.order_id)}>
-						Reject
+						className="btn btn-warning"
+						onClick={() => handleClick(row.order.order_id)}>
+						Deliver
 					</button>
 				</TableCell>
 			</TableRow>
@@ -124,14 +112,13 @@ function Row(props) {
 	);
 }
 
-const Current = () => {
-	const { orders, updateOrders } = useContext(OrderContext);
+const Pending = () => {
+	const { orders, updateOrders } = useContext(PendingContext);
 
 	useEffect(() => {
 		async function fetchData() {
 			try {
-				const data = await axios("/shops/me");
-				console.log(typeof data.data);
+				const data = await axios("/shops/me/pending");
 				updateOrders(data.data);
 			} catch (e) {
 				console.log(e);
@@ -155,8 +142,7 @@ const Current = () => {
 							Address
 						</TableCell>
 						<TableCell align="right">Total Price</TableCell>
-						<TableCell align="right">Accept</TableCell>
-						<TableCell align="right">Reject</TableCell>
+						<TableCell align="right">Deliver</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -169,4 +155,4 @@ const Current = () => {
 	);
 };
 
-export default Current;
+export default Pending;

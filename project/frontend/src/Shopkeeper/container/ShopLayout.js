@@ -6,9 +6,9 @@ const ShopLayout = (props) => {
 		<div>
 			<Header {...props} />
 			<div className="main">
-				<Content />
+				<Content path={props.match.path} />
 			</div>
-			{/* <Footer /> */}
+			<Footer />
 		</div>
 	);
 };

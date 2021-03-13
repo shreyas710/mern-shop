@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Collapse from "@material-ui/core/Collapse";
@@ -15,7 +14,6 @@ import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import axios from "./../../axios/axios";
-import { OrderContext } from "../contexts/OrderContext";
 
 const useRowStyles = makeStyles({
 	root: {
@@ -29,23 +27,6 @@ function Row(props) {
 	const { row } = props;
 	const [open, setOpen] = React.useState(false);
 	const classes = useRowStyles();
-
-	const { orders, updateOrders } = useContext(OrderContext);
-
-	const handleClick = async (flag, id) => {
-		const status = flag === 1 ? "accepted" : "rejected";
-		try {
-			console.log(id);
-			const data = await axios.get(`shops/me/get/${id}?${status}=true`);
-
-			const data1 = await axios("/shops/me");
-			updateOrders(data1.data);
-
-			console.log(data);
-		} catch (e) {
-			console.log(e);
-		}
-	};
 
 	return (
 		<React.Fragment>
@@ -67,20 +48,6 @@ function Row(props) {
 					{row.address}
 				</TableCell>
 				<TableCell align="right">{row.order.totalPrice}</TableCell>
-				<TableCell align="right" className="border-bottom">
-					<button
-						className="btn btn-success"
-						onClick={() => handleClick(1, row.order.order_id)}>
-						Accept
-					</button>
-				</TableCell>
-				<TableCell align="right" className="border-bottom">
-					<button
-						className="btn btn-danger"
-						onClick={() => handleClick(0, row.order.order_id)}>
-						Reject
-					</button>
-				</TableCell>
 			</TableRow>
 			<TableRow>
 				<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -124,15 +91,14 @@ function Row(props) {
 	);
 }
 
-const Current = () => {
-	const { orders, updateOrders } = useContext(OrderContext);
+const History = () => {
+	const [orders, setOrders] = useState([]);
 
 	useEffect(() => {
 		async function fetchData() {
 			try {
-				const data = await axios("/shops/me");
-				console.log(typeof data.data);
-				updateOrders(data.data);
+				const data = await axios("/shops/me/history");
+				setOrders(data.data);
 			} catch (e) {
 				console.log(e);
 			}
@@ -155,8 +121,6 @@ const Current = () => {
 							Address
 						</TableCell>
 						<TableCell align="right">Total Price</TableCell>
-						<TableCell align="right">Accept</TableCell>
-						<TableCell align="right">Reject</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -169,4 +133,4 @@ const Current = () => {
 	);
 };
 
-export default Current;
+export default History;

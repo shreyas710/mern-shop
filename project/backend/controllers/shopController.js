@@ -52,9 +52,9 @@ const getOrders = async (req, res) => {
 			orders.map(async (order) => {
 				async function fetchData(order) {
 					let temp = {
-						name:"",
-						address:"",
-						order
+						name: "",
+						address: "",
+						order,
 					};
 					try {
 						const cust = await Cust.findOne({ _id: order.cust_id });
@@ -71,6 +71,69 @@ const getOrders = async (req, res) => {
 			})
 		);
 
+		res.status(200).send(updatedOrders);
+	} catch (e) {
+		console.log(e);
+	}
+};
+
+const updateOrders = async (req, res) => {
+	console.log(req.params, req.query.accepted);
+	let status =
+		req.query.accepted === "true"
+			? "accepted"
+			: req.query.rejected === "true"
+			? "rejected"
+			: req.query.delivered === "true"
+			? "delivered"
+			: null;
+	if (!status) {
+		return res.status(200).send();
+	}
+	const id = Number.parseInt(req.params.order_id);
+	try {
+		await Orders.updateOne(
+			{ order_id: id },
+			{
+				$set: {
+					status: status,
+				},
+			}
+		);
+	} catch (e) {
+		console.log(e);
+	}
+	res.status(200).send();
+};
+
+const deliverOrders = async (req, res) => {
+	try {
+		let orders = await Orders.find({
+			$and: [{ shop_id: req.shop._id }, { status: "accepted" }],
+		});
+
+		const updatedOrders = await Promise.all(
+			orders.map(async (order) => {
+				async function fetchData(order) {
+					let temp = {
+						name: "",
+						address: "",
+						order,
+					};
+					try {
+						const cust = await Cust.findOne({ _id: order.cust_id });
+						temp.address = cust.address;
+						temp.name = cust.name;
+					} catch (e) {
+						console.log(e);
+					}
+					return Promise.resolve(temp);
+				}
+				const data = await fetchData(order);
+				// console.log(data);
+				return data;
+			})
+		);
 
 		res.status(200).send(updatedOrders);
 	} catch (e) {
@@ -78,27 +141,40 @@ const getOrders = async (req, res) => {
 	}
 };
 
-const updateOrders = async (req,res) => {
-	console.log(req.params,req.query.accepted)
-	let status = req.query.accepted === 'true' ? 'accepted' : req.query.rejected === 'true' ?  'rejected': req.query.delivered === 'true' ? 'delivered' : null;
-	if(!status){
-		return res.status(200).send();
-	}
-	const id = Number.parseInt(req.params.order_id);
-	try{
-		await Orders.updateOne(
-			{ order_id: id},
-			{
-				$set: {
-					status : status
-				},
-			}
+const historyOrders = async (req, res) => {
+	try {
+		let orders = await Orders.find({
+			$and: [{ shop_id: req.shop._id }, { status: "delivered" }],
+		});
+
+		const updatedOrders = await Promise.all(
+			orders.map(async (order) => {
+				async function fetchData(order) {
+					let temp = {
+						name: "",
+						address: "",
+						order,
+					};
+					try {
+						const cust = await Cust.findOne({ _id: order.cust_id });
+						temp.address = cust.address;
+						temp.name = cust.name;
+					} catch (e) {
+						console.log(e);
+					}
+					return Promise.resolve(temp);
+				}
+				const data = await fetchData(order);
+				// console.log(data);
+				return data;
+			})
 		);
-	}catch(e){
+
+		res.status(200).send(updatedOrders);
+	} catch (e) {
 		console.log(e);
 	}
-	res.status(200).send();
-}
+};
 
 module.exports = {
 	sign_up_post,
@@ -106,5 +182,7 @@ module.exports = {
 	sign_in_get,
 	sign_in_post,
 	getOrders,
-	updateOrders
+	updateOrders,
+	deliverOrders,
+	historyOrders,
 };

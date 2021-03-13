@@ -6,27 +6,27 @@ const SidebarData = [
 	},
 	{
 		title: "Pending",
-		path: "/shops/pending",
+		path: "/shops/me/pending",
 		icon: "pending",
 	},
 	{
 		title: "History",
-		path: "/shops/history",
+		path: "/shops/me/history",
 		icon: "history",
 	},
 	{
 		title: "Add Items",
-		path: "/shops/addItems",
+		path: "/shops/me/addItems",
 		icon: "add",
 	},
 	{
 		title: "Update Items",
-		path: "/shops/updateItems",
+		path: "/shops/me/updateItems",
 		icon: "update",
 	},
 	{
 		title: "Reviews",
-		path: "/shops/reviews",
+		path: "/shops/me/reviews",
 		icon: "reviews",
 	},
 ];
