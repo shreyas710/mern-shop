@@ -30,12 +30,12 @@ function Content() {
 		setData();
 	}, [items]);
 	return (
-		<div className="content">
+		<div className="content container">
 			<div style={{ display: carouselDisplay }}>
 				<CarouselComp className="carousel" />
 			</div>
 
-			<div>
+			<div className="row">
 				{products.map((item) => (
 					<ProductCard className="card" {...item} key={item._id} />
 				))}

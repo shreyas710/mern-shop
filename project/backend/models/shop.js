@@ -4,7 +4,7 @@ const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Cart = require("./cart");
-const ShopItem = require('./shopItem');
+const ShopItem = require("./shopItem");
 
 const shopSchema = new Schema(
 	{
@@ -79,14 +79,14 @@ const shopSchema = new Schema(
 );
 
 shopSchema.virtual("shopItem", {
-	ref: "ShopItem",
+	ref: "Shop_Item",
 	localField: "_id",
 	foreignField: "shop_id",
 });
 
 shopSchema.methods.toJSON = function () {
 	const shop = this;
-	const shopObject = cust.toObject();
+	const shopObject = shop.toObject();
 
 	delete shopObject.password;
 

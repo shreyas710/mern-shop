@@ -59,7 +59,7 @@ const routes = [
 		exact: true,
 		path: "/shops/me/addItems",
 		name: "Add Items",
-		component: dummy,
+		component: ShopLayout,
 	},
 	{
 		exact: true,

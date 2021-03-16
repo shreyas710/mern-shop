@@ -8,7 +8,7 @@ const ShopLayout = (props) => {
 			<div className="main">
 				<Content path={props.match.path} />
 			</div>
-			<Footer />
+			{/* <Footer /> */}
 		</div>
 	);
 };

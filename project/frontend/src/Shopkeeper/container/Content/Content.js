@@ -4,6 +4,7 @@ import axios from "../../../axios/axios";
 import Current from "../../pages/Current";
 import Pending from "../../pages/Pending";
 import History from "../../pages/History";
+import AddItems from "../../pages/AddItems";
 
 function Content({ path }) {
 	let ele;
@@ -19,6 +20,9 @@ function Content({ path }) {
 			break;
 		case "history":
 			ele = <History />;
+			break;
+		case "addItems":
+			ele = <AddItems />;
 			break;
 		default:
 			ele = <Current />;

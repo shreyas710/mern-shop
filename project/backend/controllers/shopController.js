@@ -11,7 +11,8 @@ const sign_up_post = async (req, res) => {
 		const shopItem = new ShopItem({ shop_id: user._id });
 		await shopItem.save();
 		//  const token = await user.generateShopAuthToken()
-		res.redirect("/custs/signin");
+		// res.redirect("/custs/signin");
+		res.status(200);
 	} catch (e) {
 		console.log(e);
 		res.status(404).sendFile(path.resolve("views/404.html"));

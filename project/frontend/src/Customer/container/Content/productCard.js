@@ -29,7 +29,7 @@ const ProductCard = (props) => {
 	};
 
 	return (
-		<Card>
+		<Card style={{ width: "30%" }}>
 			<CardImg top width="100%" src={props.url} alt={props.name} />
 			<CardBody>
 				<CardTitle tag="h5">{props.name}</CardTitle>
