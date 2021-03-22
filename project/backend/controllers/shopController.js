@@ -1,8 +1,10 @@
 const Shop = require("../models/shop");
 var path = require("path");
 const ShopItem = require("../models/shopItem");
+const mongoose = require("mongoose");
 const Orders = require("../models/orders");
 const Cust = require("../models/cust");
+const Product = require("../models/product");
 
 const sign_up_post = async (req, res) => {
 	const user = new Shop(req.body);
@@ -177,6 +179,53 @@ const historyOrders = async (req, res) => {
 	}
 };
 
+const addItems = async (req, res) => {
+	try {
+		var objectId = mongoose.Types.ObjectId(req.body.owner);
+		let shopItem = await ShopItem.findOne({ shop_id: req.shop._id });
+		console.log(shopItem.products);
+		let products = shopItem.products.findIndex(
+			(product) =>
+				JSON.stringify(product.owner) === JSON.stringify(req.body.owner)
+		);
+		console.log(products);
+		if (products !== -1) {
+			return res.status(201).send();
+		}
+		req.body.owner = objectId;
+		let addItem = await ShopItem.updateOne(
+			{ shop_id: req.shop._id },
+			{ $push: { products: req.body } }
+		);
+		res.status(200).send();
+	} catch (e) {
+		console.log(e);
+	}
+};
+
+const get_products = async (req, res) => {
+	try {
+		const products = await Product.find();
+		res.status(200).send(products);
+	} catch (e) {
+		console.log(e);
+		res.status(404).sendFile(path.resolve("views/404.html"));
+	}
+};
+
+const getSpecificProd = async (req, res) => {
+	try {
+		const products = await Product.find({
+			name: new RegExp(req.query.search),
+		});
+		// console.log(products);
+		res.status(200).send(products);
+	} catch (e) {
+		console.log(e);
+		res.status(404).sendFile(path.resolve("views/404.html"));
+	}
+};
+
 module.exports = {
 	sign_up_post,
 	sign_up_get,
@@ -186,4 +235,7 @@ module.exports = {
 	updateOrders,
 	deliverOrders,
 	historyOrders,
+	addItems,
+	get_products,
+	getSpecificProd,
 };
