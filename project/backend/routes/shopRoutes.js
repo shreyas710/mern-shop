@@ -15,5 +15,9 @@ router.get("/me/history", authShop, shopController.historyOrders);
 router.get("/me/addItems", authShop, shopController.get_products);
 router.post("/me/addItems", authShop, shopController.addItems);
 router.get("/me/product", authShop, shopController.getSpecificProd);
+router.get("/me/shopItems", authShop, shopController.getShopItems);
+router.post("/me/updateItems", authShop, shopController.updateItems);
+router.get("/me/shopItems/get", authShop, shopController.getSearchedShopItems);
+
 
 module.exports = router;

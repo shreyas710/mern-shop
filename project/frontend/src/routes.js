@@ -65,7 +65,7 @@ const routes = [
 		exact: true,
 		path: "/shops/me/updateItems",
 		name: "Update Items",
-		component: dummy,
+		component: ShopLayout,
 	},
 	{
 		exact: true,

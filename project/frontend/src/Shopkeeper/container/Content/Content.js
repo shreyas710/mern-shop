@@ -5,6 +5,7 @@ import Current from "../../pages/Current";
 import Pending from "../../pages/Pending";
 import History from "../../pages/History";
 import AddItems from "../../pages/AddItems";
+import UpdateItems from '../../pages/UpdateItems'
 
 function Content({ path }) {
 	let ele;
@@ -23,6 +24,9 @@ function Content({ path }) {
 			break;
 		case "addItems":
 			ele = <AddItems />;
+			break;
+		case "updateItems":
+			ele = <UpdateItems />;
 			break;
 		default:
 			ele = <Current />;

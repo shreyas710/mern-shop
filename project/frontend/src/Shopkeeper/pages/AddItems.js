@@ -15,7 +15,23 @@ function AddItems() {
 		setData();
 	}, []);
 
-	const handleChange = (e) => {
+	useEffect(() => {
+		async function setData() {
+			try {
+				const response = await axios.get(
+					`/shops/me/product?search=${searchItem}`
+				);
+				console.log(response);
+				setProducts(response.data);
+	
+			} catch (e) {
+				console.log(e);
+			}
+		}
+		setData();
+	}, [searchItem]);
+
+	const handleChange = async (e) => {
 		setSearchItem(e.target.value);
 	};
 
