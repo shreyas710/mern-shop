@@ -1,14 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import "./Sidebar.css";
 import { CartContext } from "../../contexts/CartContext";
 import Cart from "./Cart";
 import axios from "../../../axios/axios";
+import { useHistory } from "react-router-dom";
 
 const Sidebar = () => {
 	let text = "No items in list";
+	const history = useHistory();
 
 	const { items, increaseQuantity } = useContext(CartContext);
+	console.log(items);
+	// useEffect(() => {
+	// 	history.push("/custs/me/shoplist");
+	// }, []);
 
 	const handleQuantity = (id, e) => {
 		console.log(e);

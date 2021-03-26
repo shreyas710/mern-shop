@@ -1,7 +1,10 @@
 const Cust = require("../models/cust");
 const Product = require("../models/product");
 const Cart = require("../models/cart");
+const Shop = require("../models/shop");
 var path = require("path");
+const ShopItem = require("../models/shopItem");
+const mongoose = require("mongoose");
 
 const sign_up_post = async (req, res) => {
 	// console.log(req.body);
@@ -42,11 +45,8 @@ const sign_in_post = async (req, res) => {
 };
 
 const get_products = async (req, res) => {
-	// console.log(req.body);
-
 	try {
 		const products = await Product.find();
-		// console.log(products);
 		res.status(200).send(products);
 	} catch (e) {
 		console.log(e);
@@ -55,11 +55,8 @@ const get_products = async (req, res) => {
 };
 
 const get_products_search = async (req, res) => {
-	// console.log(req.query.search);
-
 	try {
 		const products = await Product.find({ name: new RegExp(req.query.search) });
-		// console.log(products);
 		res.status(200).send(products);
 	} catch (e) {
 		console.log(e);
@@ -68,7 +65,6 @@ const get_products_search = async (req, res) => {
 };
 
 const save_cart = async (req, res) => {
-	console.log(req.body.items);
 	try {
 		const cart = await Cart.updateOne(
 			{ cust_id: req.cust._id },
@@ -85,6 +81,42 @@ const save_cart = async (req, res) => {
 	}
 };
 
+const shopList = async (req, res) => {
+	try {
+		const shops = await Shop.find({ pin: req.cust.pin }).select("_id");
+		const shopItem = await ShopItem.find({ shop_id: { $in: shops } });
+		let shopList = [];
+		shopItem.forEach((item) => {
+			var price = 0;
+			var shop = {
+				products: [],
+				price: 0,
+				owner: item.shop_id,
+			};
+			req.body.items.forEach((it) => {
+				var x = 0;
+				item.products.forEach((prod) => {
+					if (JSON.stringify(prod.owner) === JSON.stringify(it.owner)) {
+						x = 1;
+						price += parseInt(prod.price);
+						shop.products.push(prod);
+					}
+				});
+				if (x == 0) {
+					return;
+				}
+			});
+			if (price != 0) {
+				shop.price = price;
+				shopList.push(shop);
+			}
+		});
+		res.status(200).send(shopList);
+	} catch (e) {
+		console.log(e);
+	}
+};
+
 module.exports = {
 	sign_up_post,
 	sign_up_get,
@@ -93,4 +125,5 @@ module.exports = {
 	get_products,
 	get_products_search,
 	save_cart,
+	shopList,
 };

@@ -11,6 +11,6 @@ router.post("/signup", custController.sign_up_post);
 router.get("/signin", custController.sign_in_get);
 router.post("/signin", custController.sign_in_post);
 router.post("/cart/save", authCust, custController.save_cart);
-
+router.post("/me/shoplist", authCust, custController.shopList);
 
 module.exports = router;

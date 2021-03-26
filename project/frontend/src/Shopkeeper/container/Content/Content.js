@@ -5,7 +5,7 @@ import Current from "../../pages/Current";
 import Pending from "../../pages/Pending";
 import History from "../../pages/History";
 import AddItems from "../../pages/AddItems";
-import UpdateItems from '../../pages/UpdateItems'
+import UpdateItems from "../../pages/UpdateItems";
 
 function Content({ path }) {
 	let ele;

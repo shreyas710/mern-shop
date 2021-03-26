@@ -1,47 +1,27 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./Content.css";
-import CarouselComp from "./CarouselComponent";
-import ProductCard from "./productCard.js";
-import axios from "../../../axios/axios";
-import { CardGroup } from "reactstrap";
-import { SearchContext } from "../../contexts/SearchContext";
+import Home from "../../pages/HomeComponent";
+import ShopList from "../../pages/ShopListComponent";
 
-function Content() {
-	const [products, setProducts] = useState([]);
-	const [carouselDisplay, setcarouselDisplay] = useState("initial");
-	const { items } = useContext(SearchContext);
+function Content({ path }) {
+	let ele;
+	if (path === "/") {
+		return <Home />;
+	}
+	let splitPath = path.split("/");
+	let component = splitPath[splitPath.length - 1];
+	switch (component) {
+		case "me":
+			ele = <Home />;
+			break;
+		case "shoplist":
+			ele = <ShopList />;
+			break;
+		default:
+			ele = <div>Error</div>;
+	}
 
-	useEffect(() => {
-		async function setData() {
-			const response = await axios.get("/custs");
-			setProducts(response.data);
-		}
-		setData();
-	}, []);
-
-	useEffect(() => {
-		async function setData() {
-			setProducts(items);
-
-			if (items.length > 0) {
-				setcarouselDisplay("none");
-			}
-		}
-		setData();
-	}, [items]);
-	return (
-		<div className="content container">
-			<div style={{ display: carouselDisplay }}>
-				<CarouselComp className="carousel" />
-			</div>
-
-			<div className="row">
-				{products.map((item) => (
-					<ProductCard className="card" {...item} key={item._id} />
-				))}
-			</div>
-		</div>
-	);
+	return <div className="content w-100">{ele}</div>;
 }
 
 export default Content;

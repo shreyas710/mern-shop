@@ -30,8 +30,6 @@ const sign_in_get = (req, res) => {
 };
 
 const sign_in_post = async (req, res) => {
-	// console.log(req.body)
-
 	try {
 		const user = await Shop.findByCredentials(
 			req.body.email,
@@ -225,11 +223,9 @@ const getSpecificProd = async (req, res) => {
 	}
 };
 
-const getShopItems = async (req,res) => {
-	try{
-		let shopItem = await ShopItem.findOne(
-			{ shop_id: req.shop._id },
-		);
+const getShopItems = async (req, res) => {
+	try {
+		let shopItem = await ShopItem.findOne({ shop_id: req.shop._id });
 		const orgItems = await Promise.all(
 			shopItem.products.map(async (item) => {
 				async function fetchData(item) {
@@ -249,35 +245,34 @@ const getShopItems = async (req,res) => {
 				return data;
 			})
 		);
-		res.status(200).send(orgItems)
-	}catch(e)
-	{
+		res.status(200).send(orgItems);
+	} catch (e) {
 		console.log(e);
 	}
-}
+};
 
-const updateItems = async(req, res) => {
-	try{
+const updateItems = async (req, res) => {
+	try {
 		var objectId = mongoose.Types.ObjectId(req.body.owner);
 		await ShopItem.updateOne(
-			{ shop_id: req.shop._id,
-				products: { $elemMatch: { owner : objectId } } 
-			},
-			{ $set: { "products.$.price": req.body.price, "products.$.availability": req.body.availability } }
+			{ shop_id: req.shop._id, products: { $elemMatch: { owner: objectId } } },
+			{
+				$set: {
+					"products.$.price": req.body.price,
+					"products.$.availability": req.body.availability,
+				},
+			}
 		);
-		
+
 		res.status(200).send();
-	}catch(e)
-	{
+	} catch (e) {
 		console.log(e);
 	}
-}
+};
 
-const getSearchedShopItems = async (req,res) => {
-	try{
-		let shopItem = await ShopItem.findOne(
-			{ shop_id: req.shop._id },
-		);
+const getSearchedShopItems = async (req, res) => {
+	try {
+		let shopItem = await ShopItem.findOne({ shop_id: req.shop._id });
 		const orgItems = await Promise.all(
 			shopItem.products.map(async (item) => {
 				async function fetchData(item) {
@@ -297,14 +292,14 @@ const getSearchedShopItems = async (req,res) => {
 				return data;
 			})
 		);
-		const products = orgItems.filter(product => {
-			return product.name.includes(req.query.search)
-		})
+		const products = orgItems.filter((product) => {
+			return product.name.includes(req.query.search);
+		});
 		res.status(200).send(products);
-	}catch(e){
+	} catch (e) {
 		console.log(e);
 	}
-}
+};
 
 module.exports = {
 	sign_up_post,
@@ -320,5 +315,5 @@ module.exports = {
 	getSpecificProd,
 	getShopItems,
 	updateItems,
-	getSearchedShopItems
+	getSearchedShopItems,
 };

@@ -1,7 +1,6 @@
 import React from "react";
 import { Header, Footer, Sidebar, Content } from "./index";
 import SearchContextProvider from "./../contexts/SearchContext";
-import CartContextProvider from "./../contexts/CartContext";
 
 const Layout = (props) => {
 	return (
@@ -9,10 +8,8 @@ const Layout = (props) => {
 			<SearchContextProvider>
 				<Header {...props} />
 				<div className="main">
-					<CartContextProvider>
-						<Sidebar />
-						<Content />
-					</CartContextProvider>
+					<Sidebar />
+					<Content path={props.match.path} />
 				</div>
 				{/* <Footer /> */}
 			</SearchContextProvider>

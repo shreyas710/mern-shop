@@ -87,6 +87,12 @@ const routes = [
 		component: Layout,
 	},
 	{
+		exact: true,
+		path: "/custs/me/shoplist",
+		name: "Customer Home",
+		component: Layout,
+	},
+	{
 		path: "/",
 		name: "Customer Home",
 		component: Layout,
