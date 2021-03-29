@@ -28,7 +28,7 @@ function Home() {
 		setData();
 	}, [items]);
 	return (
-		<div className="content container">
+		<div className="content container-fluid">
 			<div style={{ display: carouselDisplay }}>
 				<CarouselComp className="carousel" />
 			</div>
