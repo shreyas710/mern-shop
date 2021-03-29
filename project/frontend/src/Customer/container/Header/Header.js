@@ -110,8 +110,10 @@ const Header = (props) => {
 			</div>
 
 			<nav className={sidebar ? "nav-menu active" : "nav-menu"}>
-				<ul className="nav-menu-items" onClick={showSidebar}>
-					<li className="navbar-toggle">
+				<ul className="nav-menu-items p-0" onClick={showSidebar}>
+					<li
+						className="navbar-toggle pl-5"
+						style={{ backgroundColor: "#254454", height: "10%" }}>
 						<Link to="#" className="menu-bars">
 							<AiIcons.AiOutlineClose />
 						</Link>

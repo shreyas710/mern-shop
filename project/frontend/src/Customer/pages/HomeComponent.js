@@ -33,7 +33,7 @@ function Home() {
 				<CarouselComp className="carousel" />
 			</div>
 
-			<div className="row">
+			<div className="row justify-content-center">
 				{products.map((item) => (
 					<ProductCard className="card" {...item} key={item._id} />
 				))}

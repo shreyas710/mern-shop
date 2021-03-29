@@ -39,14 +39,21 @@ const ProductCard = (props) => {
 	} else {
 		return (
 			<Card style={{ width: "30%" }}>
-				<CardImg top width="100%" src={props.url} alt={props.name} />
+				<CardImg top width="100%" src="/img/rice.jpg" alt={props.name} />
 				<CardBody>
 					<CardTitle tag="h5">{props.name}</CardTitle>
 					<CardSubtitle tag="h6" className="mb-2 text-muted">
 						{props.category}
 					</CardSubtitle>
 					<CardText>This is a wider card </CardText>
-					<Button onClick={(e) => handleClick(e)}>Add to Cart</Button>
+					<Button
+						onClick={(e) => handleClick(e)}
+						style={{
+							background: "linear-gradient(to bottom,#f7dfa5,#f0c14b)",
+							color: "black",
+						}}>
+						Add to Cart
+					</Button>
 				</CardBody>
 			</Card>
 		);
