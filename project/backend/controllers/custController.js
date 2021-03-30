@@ -94,11 +94,13 @@ const shopList = async (req, res) => {
 				owner: item.shop_id,
 			};
 			req.body.items.forEach((it) => {
+				// console.log(it);
 				var x = 0;
 				item.products.forEach((prod) => {
 					if (JSON.stringify(prod.owner) === JSON.stringify(it.owner)) {
 						x = 1;
-						price += parseInt(prod.price);
+						price += parseInt(it.quantity) * parseInt(prod.price);
+						prod.quantity = it.quantity;
 						shop.products.push(prod);
 					}
 				});

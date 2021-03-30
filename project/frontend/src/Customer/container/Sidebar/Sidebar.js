@@ -11,15 +11,12 @@ const Sidebar = () => {
 	const history = useHistory();
 
 	const { items, increaseQuantity } = useContext(CartContext);
-	console.log(items);
 	// useEffect(() => {
 	// 	history.push("/custs/me/shoplist");
 	// }, []);
 
 	const handleQuantity = (id, e) => {
-		console.log(e);
 		increaseQuantity(id, e);
-		console.log(items);
 	};
 
 	const handleDropDown = () => {

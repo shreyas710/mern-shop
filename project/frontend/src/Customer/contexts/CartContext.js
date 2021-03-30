@@ -4,6 +4,7 @@ export const CartContext = createContext();
 
 const CartContextProvider = (props) => {
 	const [items, setItems] = useState([]);
+
 	const insertItems = (products) => {
 		let obj = items.find((item) => item._id === products._id);
 		if (!obj) {
@@ -16,6 +17,7 @@ const CartContextProvider = (props) => {
 			return item._id !== id;
 		});
 		setItems(obj);
+		console.log(items);
 	};
 
 	const increaseQuantity = (id, value) => {
@@ -25,7 +27,9 @@ const CartContextProvider = (props) => {
 			obj.quantity = parseInt(value);
 		}
 		setItems(temp);
+		console.log(items);
 	};
+
 	return (
 		<CartContext.Provider
 			value={{ items, insertItems, deleteItems, increaseQuantity }}>

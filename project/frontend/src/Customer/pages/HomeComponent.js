@@ -27,6 +27,7 @@ function Home() {
 		}
 		setData();
 	}, [items]);
+
 	return (
 		<div className="content container-fluid">
 			<div style={{ display: carouselDisplay }}>

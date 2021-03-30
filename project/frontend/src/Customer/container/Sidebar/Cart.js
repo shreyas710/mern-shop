@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { CartContext } from "../../contexts/CartContext";
+import { Redirect } from "react-router-dom";
+import axios from "../../../axios/axios";
 
 const Cart = (props) => {
 	const { items, deleteItems, increaseQuantity } = useContext(CartContext);
 
 	const handleQuantity = (id, e) => {
-		console.log(e);
 		increaseQuantity(id, e.target.value);
-		console.log(items);
 	};
 
 	const handleDropDown = () => {
@@ -17,7 +17,6 @@ const Cart = (props) => {
 	};
 
 	const handleClose = (id, e) => {
-		console.log(id);
 		deleteItems(id);
 	};
 
@@ -33,18 +32,7 @@ const Cart = (props) => {
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<h5 className="card-title  d-inline">{props.name}</h5>
-					<select
-						name="cars"
-						id="cars"
-						className="float-right"
-						onChange={(e) => handleQuantity(props._id, e)}
-						style={{ width: "3rem" }}>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-					</select>
+					<span>{props.quantity}</span>
 				</div>
 			</div>
 		</div>
