@@ -55,7 +55,7 @@ const CarouselComp = (props) => {
 				onExited={() => setAnimating(false)}
 				key={item.src}>
 				<img
-					src="img/carousel.jpg"
+					src="/img/carousel.jpg"
 					alt={item.altText}
 					width="100%"
 					height="400px"
