@@ -33,7 +33,9 @@ const Header = (props) => {
 			console.log(response);
 			updateItems(response.data);
 			setProduct("");
-		} catch (e) {}
+		} catch (e) {
+			console.log(e);
+		}
 	};
 	return (
 		<>

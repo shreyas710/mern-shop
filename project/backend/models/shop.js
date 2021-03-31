@@ -66,6 +66,10 @@ const shopSchema = new Schema(
 			type: String,
 			trim: true,
 		},
+		rating: {
+			type: Number,
+			trim: true,
+		},
 		tokens: [
 			{
 				token: {

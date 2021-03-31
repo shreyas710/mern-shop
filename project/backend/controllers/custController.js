@@ -86,15 +86,16 @@ const shopList = async (req, res) => {
 		const shops = await Shop.find({ pin: req.cust.pin }).select("_id");
 		const shopItem = await ShopItem.find({ shop_id: { $in: shops } });
 		let shopList = [];
-		shopItem.forEach((item) => {
+		shopItem.forEach(async (item) => {
 			var price = 0;
 			var shop = {
 				products: [],
 				price: 0,
 				owner: item.shop_id,
+				shop_name: "",
+				rating: 0,
 			};
 			req.body.items.forEach((it) => {
-				// console.log(it);
 				var x = 0;
 				item.products.forEach((prod) => {
 					if (JSON.stringify(prod.owner) === JSON.stringify(it.owner)) {
@@ -113,7 +114,30 @@ const shopList = async (req, res) => {
 				shopList.push(shop);
 			}
 		});
-		res.status(200).send(shopList);
+		const orgItems = await Promise.all(
+			shopList.map(async (item) => {
+				async function fetchData(item) {
+					let temp = {
+						shop_name: "",
+						rating: 0,
+						address: "",
+						item,
+					};
+					try {
+						const sh = await Shop.findById(item.owner);
+						temp.address = sh.address;
+						temp.shop_name = sh.shop_name;
+						temp.rating = sh.rating;
+					} catch (e) {
+						console.log(e);
+					}
+					return Promise.resolve(temp);
+				}
+				const data = await fetchData(item);
+				return data;
+			})
+		);
+		res.status(200).send(orgItems);
 	} catch (e) {
 		console.log(e);
 	}
