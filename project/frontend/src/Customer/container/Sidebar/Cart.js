@@ -2,9 +2,12 @@ import React, { useContext, useState, useEffect } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import { Redirect } from "react-router-dom";
 import axios from "../../../axios/axios";
+import { useHistory } from "react-router-dom";
+
 
 const Cart = (props) => {
 	const { items, deleteItems, increaseQuantity } = useContext(CartContext);
+	const history = useHistory();
 
 	const handleQuantity = (id, e) => {
 		increaseQuantity(id, e.target.value);
@@ -28,7 +31,7 @@ const Cart = (props) => {
 						type="button"
 						className="close"
 						aria-label="Close"
-						onClick={(e) => handleClose(props._id, e)}>
+						onClick={(e) => handleClose(props.owner, e)}>
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<h5 className="card-title  d-inline">{props.name}</h5>

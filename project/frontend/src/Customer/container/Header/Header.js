@@ -7,6 +7,8 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { SearchContext } from "../../contexts/SearchContext";
 import axios from "../../../axios/axios";
+import { useHistory } from "react-router-dom";
+
 
 const Header = (props) => {
 	const [sidebar, setSidebar] = useState(false);
@@ -15,6 +17,8 @@ const Header = (props) => {
 	const { items, updateItems } = useContext(SearchContext);
 	const [product, setProduct] = useState("");
 	const open = Boolean(anchorEl);
+	const history = useHistory();
+	
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
@@ -33,6 +37,8 @@ const Header = (props) => {
 			console.log(response);
 			updateItems(response.data);
 			setProduct("");
+			history.push('/custs/me');
+
 		} catch (e) {
 			console.log(e);
 		}

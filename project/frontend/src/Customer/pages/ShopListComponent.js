@@ -9,17 +9,22 @@ const ShopList = (props) => {
 
 	useEffect(() => {
 		(async () => {
-			const response = await axios.post("/custs/me/shoplist", { items });
-			setShoplist(response.data);
-			shoplist.sort((a, b) =>
-				a.price > b.price
-					? 1
-					: a.price === b.price
-					? a.rating > b.rating
+			try{
+				console.log(items);
+				const response = await axios.post("/custs/me/shoplist", { items });
+				setShoplist(response.data);
+				shoplist.sort((a, b) =>
+					a.price > b.price
 						? 1
-						: -1
-					: -1
-			);
+						: a.price === b.price
+						? a.rating > b.rating
+							? 1
+							: -1
+							: -1
+				);
+			}catch(e){
+				console.log(e.response.data);
+			}
 		})();
 	}, []);
 

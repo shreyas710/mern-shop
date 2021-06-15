@@ -35,7 +35,6 @@ const ProductCard = (props) => {
 		item.owner = props._id;
 		item.name = props.name;
 		insertItems(item);
-		console.log(items);
 		setDirect("/custs/me/shoplist");
 	};
 

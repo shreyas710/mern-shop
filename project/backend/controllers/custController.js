@@ -109,8 +109,9 @@ const shopList = async (req, res) => {
 					return;
 				}
 			});
-			if (price != 0) {
+			if (shop.products.length === req.body.items.length) {
 				shop.price = price;
+				console.log(shop);
 				shopList.push(shop);
 			}
 		});

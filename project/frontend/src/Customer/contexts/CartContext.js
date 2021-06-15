@@ -2,22 +2,24 @@ import React, { createContext, useState } from "react";
 
 export const CartContext = createContext();
 
+
 const CartContextProvider = (props) => {
 	const [items, setItems] = useState([]);
 
 	const insertItems = (products) => {
-		let obj = items.find((item) => item._id === products._id);
+		let obj = items.find((item) => item._id !== products._id);
 		if (!obj) {
 			setItems([...items, products]);
 		}
+		// console.log(items);
 	};
 
-	const deleteItems = (id) => {
+	const deleteItems = (owner) => {
 		let obj = items.filter((item) => {
-			return item._id !== id;
+			return item.owner !== owner;
 		});
 		setItems(obj);
-		console.log(items);
+		// console.log(items);
 	};
 
 	const increaseQuantity = (id, value) => {

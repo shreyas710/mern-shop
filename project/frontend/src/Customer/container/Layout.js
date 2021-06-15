@@ -5,14 +5,14 @@ import SearchContextProvider from "./../contexts/SearchContext";
 const Layout = (props) => {
 	return (
 		<div>
-			<SearchContextProvider>
+			{/* <SearchContextProvider> */}
 				<Header {...props} />
 				<div className="main">
 					<Sidebar />
 					<Content path={props.match.path} />
 				</div>
 				{/* <Footer /> */}
-			</SearchContextProvider>
+			{/* </SearchContextProvider> */}
 		</div>
 	);
 };

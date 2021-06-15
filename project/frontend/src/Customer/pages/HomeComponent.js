@@ -11,14 +11,6 @@ function Home() {
 
 	useEffect(() => {
 		async function setData() {
-			const response = await axios.get("/custs");
-			setProducts(response.data);
-		}
-		setData();
-	}, []);
-
-	useEffect(() => {
-		async function setData() {
 			setProducts(items);
 
 			if (items.length > 0) {
@@ -27,6 +19,21 @@ function Home() {
 		}
 		setData();
 	}, [items]);
+
+	useEffect(() => {
+		async function setData() {
+			if(items.length>0){
+				setProducts(items);
+			}
+			else{
+				const response = await axios.get("/custs");
+				setProducts(response.data);
+			}
+			
+		}
+		setData();
+	}, []);
+
 
 	return (
 		<div className="content container-fluid">
