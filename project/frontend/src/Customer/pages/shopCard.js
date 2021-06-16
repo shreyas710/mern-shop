@@ -84,7 +84,7 @@ const ShopCard = (props) => {
 										background: "linear-gradient(to bottom,#f7dfa5,#f0c14b)",
 										color: "black",
 										marginTop: "10%",
-										width: "20%",
+										width: "25%",
 									}}
 									aria-label="expand row"
 									size="small"
@@ -115,48 +115,53 @@ const ShopCard = (props) => {
 							</div>
 						</div>
 					</CardBody>
-				</Card>
+					<TableContainer component={Paper}>
+						<Table
+							size="small"
+							aria-label="a dense table"
+							style={{ paddingBottom: 0, paddingTop: 0 }}
+							colSpan={6}>
+							<Collapse in={open} timeout="auto" unmountOnExit>
+								<Box margin={1}>
+									<Typography variant="h6" gutterBottom component="div">
+										Order Details
+									</Typography>
+									<Table size="small" aria-label="purchases">
+										<TableHead>
+											<TableRow>
+												<TableCell>Sr. No.</TableCell>
+												<TableCell>Item Name</TableCell>
+												<TableCell align="right">Quantity</TableCell>
+												<TableCell align="right">Unit Price</TableCell>
 
-				<TableRow>
-					<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-						<Collapse in={open} timeout="auto" unmountOnExit>
-							<Box margin={1}>
-								<Typography variant="h6" gutterBottom component="div">
-									Order Details
-								</Typography>
-								<Table size="small" aria-label="purchases">
-									<TableHead>
-										<TableRow>
-											<TableCell>Sr. No.</TableCell>
-											<TableCell>Item Name</TableCell>
-											<TableCell align="right">Quantity</TableCell>
-											<TableCell align="right">Unit Price</TableCell>
-
-											<TableCell align="right">Item Total price</TableCell>
-										</TableRow>
-									</TableHead>
-									<TableBody>
-										{props.item.products.map((historyRow, index) => (
-											<TableRow key={index}>
-												<TableCell component="th" scope="row">
-													{index + 1}
-												</TableCell>
-												<TableCell>{historyRow.name}</TableCell>
-												<TableCell align="right">
-													{historyRow.quantity}
-												</TableCell>
-												<TableCell align="right">{historyRow.price}</TableCell>
-												<TableCell align="right">
-													{historyRow.quantity * historyRow.price}
-												</TableCell>
+												<TableCell align="right">Item Total price</TableCell>
 											</TableRow>
-										))}
-									</TableBody>
-								</Table>
-							</Box>
-						</Collapse>
-					</TableCell>
-				</TableRow>
+										</TableHead>
+										<TableBody>
+											{props.item.products.map((historyRow, index) => (
+												<TableRow key={index}>
+													<TableCell component="th" scope="row">
+														{index + 1}
+													</TableCell>
+													<TableCell>{historyRow.name}</TableCell>
+													<TableCell align="right">
+														{historyRow.quantity}
+													</TableCell>
+													<TableCell align="right">
+														{historyRow.price}
+													</TableCell>
+													<TableCell align="right">
+														{historyRow.quantity * historyRow.price}
+													</TableCell>
+												</TableRow>
+											))}
+										</TableBody>
+									</Table>
+								</Box>
+							</Collapse>
+						</Table>
+					</TableContainer>
+				</Card>
 			</>
 		);
 	}
